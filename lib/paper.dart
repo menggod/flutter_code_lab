@@ -16,6 +16,6 @@ class _PaperState extends State<Paper> {
   void initState() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     SystemChrome.setEnabledSystemUIOverlays([]);
-    super.initState()
+    super.initState();
   }
 }
