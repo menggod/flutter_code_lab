@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
+import 'package:flutter_code_test/list/page.dart';
 import 'package:flutter_code_test/list_enter/page.dart';
 import 'package:flutter_code_test/page_first/page.dart';
 import 'package:flutter_code_test/page_second/page.dart';
@@ -14,6 +15,7 @@ Widget createApp() {
     "enter": EnterPage(),
     "first": FirstPage(),
     "second": SecondPage(),
+    "list": ListPage(),
   });
 
   return MaterialApp(
@@ -22,7 +24,7 @@ Widget createApp() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: routes.buildPage('first', null),
+    home: routes.buildPage('list', null),
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute<Object>(builder: (BuildContext context) {
         //页面切换风格
