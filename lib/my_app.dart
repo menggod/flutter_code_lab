@@ -18,9 +18,10 @@ Widget createApp() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: routes.buildPage('enter', null),
+    home: routes.buildPage('test1', null),
     onGenerateRoute: (RouteSettings settings) {
       return MaterialPageRoute<Object>(builder: (BuildContext context) {
+        //页面切换风格
         return routes.buildPage(settings.name, settings.arguments);
       });
     },

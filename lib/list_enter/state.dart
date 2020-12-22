@@ -2,8 +2,11 @@ import 'dart:ui';
 
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_code_test/global_store/state.dart';
+import 'package:flutter_code_test/list_enter/item/state.dart';
 
 class EnterState extends MutableSource implements GlobalBaseState, Cloneable<EnterState> {
+  List<SubEnterState> items;
+
   @override
   EnterState clone() {
     return EnterState();
@@ -11,8 +14,7 @@ class EnterState extends MutableSource implements GlobalBaseState, Cloneable<Ent
 
   @override
   Object getItemData(int index) {
-    // TODO: implement getItemData
-    throw UnimplementedError();
+    return items [index];
   }
 
   @override
