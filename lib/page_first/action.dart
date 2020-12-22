@@ -1,10 +1,17 @@
 import 'package:fish_redux/fish_redux.dart';
 
-//TODO replace with your own action
-enum FirstAction { action }
+enum FirstAction { action, toSecond, updateMsg }
 
 class FirstActionCreator {
   static Action onAction() {
     return const Action(FirstAction.action);
+  }
+
+  static Action onToSecond() {
+    return Action(FirstAction.toSecond);
+  }
+
+  static Action onUpdateMsg(String msg) {
+    return Action(FirstAction.updateMsg, payload: msg);
   }
 }
