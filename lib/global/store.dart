@@ -1,6 +1,8 @@
 import 'package:fish_redux/fish_redux.dart';
-import 'package:flutter_code_test/global_store/reducer.dart';
-import 'package:flutter_code_test/global_store/state.dart';
+import 'package:flutter_code_test/global/reducer.dart';
+
+import 'state.dart';
+
 
 class GlobalStore {
   static Store<GlobalState> _store;
