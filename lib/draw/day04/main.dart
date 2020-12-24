@@ -11,35 +11,77 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
+      theme: ThemeData(primaryColor: Colors.amber),
       home: Scaffold(
         appBar: AppBar(
           title: Text('Material App Bar'),
+          centerTitle: true,
         ),
-        body: _buildBody(),
+        body: _buildBody(context),
       ),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(BuildContext context) {
     return Container(
-      alignment: Alignment.topLeft,
-      padding: EdgeInsets.all(30),
-      child: Container(
-        height: 100,
-        width: 100,
-        decoration: BoxDecoration(boxShadow: [
-          BoxShadow(
-              color: Colors.blue.withOpacity(0.5), offset: const Offset(0.0, 0.0), blurRadius: 6.0, spreadRadius: 0.0)
-        ]),
-        child: Text('sdfalkjsdhfalksjdhlfakjhs'),
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(
+                  color: Colors.blue.withOpacity(0.5),
+                  offset: const Offset(0.0, 0.0),
+                  blurRadius: 6.0,
+                  spreadRadius: 0.0)
+            ]),
+            child: Text('sdfalkjsdhfalksjdhlfakjhs'),
+          ),
+          Text('text'),
+          Row(
+            children: <Widget>[
+              Text('绝域从军计惘然，,'),
+              Text('东南幽恨满词笺。'),
+              Text('一箫一剑平生意，'),
+              Text('负尽狂名十五年。'),
+            ],
+          ),
+          Column(
+            children: <Widget>[
+              Text('绝域从军计惘然，,'),
+              Text('东南幽恨满词笺。'),
+              Text('一箫一剑平生意，'),
+              Text('负尽狂名十五年。'),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Text('绝域从军计惘然，'),
+              ),
+              Expanded(
+                child: Text('东南幽恨满词笺。'),
+              ),
+              Expanded(
+                child: Text('一箫一剑平生意，'),
+              ),
+              Card(
+                child: Text('负尽狂名十五年。'),
+              ),
+            ],
+          ),
+          Transform(
+              origin: Offset(-10, 0),
+              transform: Matrix4.rotationZ(3.1415 / 4),
+              child: Text('text') //同上面的Container，挺长的，不贴了
+          ),
+        ],
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-
-  final String title ="测试项目";
+  final String title = "测试项目";
 
   @override
   _MyHomePageState createState() => _MyHomePageState();

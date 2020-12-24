@@ -26,6 +26,7 @@ class LovePage extends StatelessWidget {
 }
 
 class NotePage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -34,6 +35,11 @@ class NotePage extends StatelessWidget {
         child: Text("NotePage"),
       ),
     );
+  }
+
+  @override
+  StatelessElement createElement() {
+    return  super.createElement();
   }
 }
 
