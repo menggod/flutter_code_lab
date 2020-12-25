@@ -48,7 +48,9 @@ class MePage extends StatelessWidget {
     return Container(
       color: Colors.white,
       child: Stack(
-        children: [SquareGridView(), Text('MePage')],
+        children: [Container(
+            constraints: BoxConstraints.expand(),
+            child: SquareGridView()), Text('MePage')],
       ),
     );
   }

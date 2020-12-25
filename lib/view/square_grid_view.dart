@@ -10,7 +10,7 @@ class SquareGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-        size: Size(double.infinity, double.infinity),
+        // size: Size(double.infinity, double.infinity),
         painter: SquareGridPainter(displayAxis: displayAxis));
   }
 }
