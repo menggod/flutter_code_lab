@@ -5,7 +5,7 @@ import 'coordinate_pro.dart';
 class SquareGridView extends StatelessWidget {
   final bool displayAxis;
 
-  SquareGridView({this.displayAxis});
+  SquareGridView({this.displayAxis = false});
 
   @override
   Widget build(BuildContext context) {
