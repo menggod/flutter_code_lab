@@ -1,5 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart' hide Action, Page;
+import 'package:flutter_code_test/global/cons.dart';
 import 'package:flutter_code_test/list/page.dart';
 import 'package:flutter_code_test/list_enter/page.dart';
 import 'package:flutter_code_test/page_first/page.dart';
@@ -19,9 +20,9 @@ Widget createApp() {
     "list": ListPage(),
   });
 
-  var _routes = <String, WidgetBuilder>{"/nav_page": (BuildContext context) => NavPage()};
+
   return MaterialApp(
-    routes: _routes,
+    routes: Cons.routeList,
     title: '测试',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(

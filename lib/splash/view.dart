@@ -1,13 +1,17 @@
-
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_code_test/global/cons.dart';
 import 'package:flutter_code_test/utils/color_utils.dart';
 import 'package:flutter_code_test/view/square_grid_view.dart';
 
 import 'state.dart';
 
 Widget buildView(SplashState state, Dispatch dispatch, ViewService viewService) {
-  data.add(PoemItem(title: "/nav_page", summary: "跳转到nav测试页面"));
+  var list = Cons.routeList.keys.toList();
+  for (int i = 0; i < list.length; i++) {
+    data.add(PoemItem(title: list[i], summary: Cons.routeIntroList[list[i]]));
+  }
+
   return Scaffold(body: _buildBody());
 }
 
@@ -88,7 +92,7 @@ class PoemItemView extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(3),
           child: CircleAvatar(
-            backgroundImage: data.image,
+            backgroundColor: data.image,
           ),
         ));
     var center = Column(
@@ -133,7 +137,7 @@ class PoemItemView extends StatelessWidget {
     var result = Card(
       child: InkWell(
         onTap: onItemClickListener,
-        child: item,
+        child: Padding(padding: EdgeInsets.fromLTRB(0, 3, 0, 3), child: item),
       ),
     );
     return result;
@@ -141,9 +145,11 @@ class PoemItemView extends StatelessWidget {
 }
 
 class PoemItem {
-  ImageProvider image; //图片
+  Color image;
   var title; //标题
   var author; //作者
   var summary; //摘要
-  PoemItem({this.image, this.title, this.author = "menggod", this.summary});
+  PoemItem({this.title, this.author = "menggod", this.summary}) {
+    image = ColorGenerator.create(ColorGenerator.materialList).getColor(title);
+  }
 }
