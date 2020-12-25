@@ -1,3 +1,4 @@
+
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/utils/color_utils.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_code_test/view/square_grid_view.dart';
 import 'state.dart';
 
 Widget buildView(SplashState state, Dispatch dispatch, ViewService viewService) {
+  data.add(PoemItem(title: "/nav_page", summary: "跳转到nav测试页面"));
   return Scaffold(body: _buildBody());
 }
 
@@ -32,14 +34,6 @@ Container _buildBody() {
 }
 
 Widget _buildRealContainer() {
-  for (var i = 0; i < 20; i++) {
-    data.add(PoemItem(
-        image: AssetImage("assets/images/wy_200x300.jpg"),
-        title: "$i:以梦为马",
-        author: "海子",
-        summary: "我要做远方的忠诚的儿子，和物质的短暂情人，和所有以梦为马的诗人一样，我不得不和烈士和小丑走在同一道路上"));
-  }
-
   return Container(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,6 +54,7 @@ var show = ListView.builder(
         onItemClickListener: () {
           //事件响应
           print(index);
+          Navigator.of(context).pushNamed(data[index].title);
         },
       );
     });
@@ -150,5 +145,5 @@ class PoemItem {
   var title; //标题
   var author; //作者
   var summary; //摘要
-  PoemItem({this.image, this.title, this.author, this.summary});
+  PoemItem({this.image, this.title, this.author = "menggod", this.summary});
 }

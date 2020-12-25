@@ -6,6 +6,7 @@ import 'package:flutter_code_test/page_first/page.dart';
 import 'package:flutter_code_test/page_second/page.dart';
 import 'package:flutter_code_test/test1/page.dart';
 
+import 'draw/day02/home.dart';
 import 'splash/page.dart';
 
 Widget createApp() {
@@ -18,7 +19,9 @@ Widget createApp() {
     "list": ListPage(),
   });
 
+  var _routes = <String, WidgetBuilder>{"/nav_page": (BuildContext context) => NavPage()};
   return MaterialApp(
+    routes: _routes,
     title: '测试',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
