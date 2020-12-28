@@ -73,8 +73,9 @@ class _AnimaPageState extends State<AnimaPage>
 
   @override
   void dispose() {
-    super.dispose();
     controller.dispose(); // 资源释放
+    super.dispose();
+
   }
 
   @override
