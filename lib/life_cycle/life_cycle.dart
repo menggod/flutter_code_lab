@@ -19,16 +19,15 @@ class _CounterWidgetState extends State<CounterWidget> {
   void initState() {
     super.initState();
     _counter = widget.initValue;
-    print(_counter);
     print(mounted); // 生命周期内包含
-    _fetchData();
+    // _fetchData();
   }
 
   Future<Null> _fetchData() async {
     await Future.delayed(Duration(seconds: 5), () {
       print('_fetchData');
       setState(() {
-        dataList = List.generate(40, (i) => i);
+        // dataList = List.generate(40, (i) => i);
         return null;
       });
     });
