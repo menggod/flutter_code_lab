@@ -19,3 +19,14 @@ class Person {
     return 'Person{age: $age, name: $name}';
   }
 }
+
+
+class Singleton{
+
+  Singleton._privateConstructor();
+
+  static final Singleton _instance = Singleton._privateConstructor();
+
+  static Singleton get instance { return _instance;}
+
+}

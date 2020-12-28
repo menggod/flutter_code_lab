@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_code_test/apple/day2/anima_pager.dart';
 import 'package:flutter_code_test/draw/day02/home.dart';
 import 'package:flutter_code_test/draw/day04/main.dart';
+import 'package:flutter_code_test/life_cycle/life_cycle.dart';
+import 'package:flutter_code_test/page_first/view.dart';
 
 class Cons {
   static const homeTabs = <String>["展示集", "神画技", "趣谈集", "bug 集"];
@@ -17,12 +19,16 @@ class Cons {
   static final routeList = <String, WidgetBuilder>{
     "/nav_page": (BuildContext context) => NavPage(),
     "/my_home_page": (BuildContext context) => MyHomePage(),
-    "/animation_page": (BuildContext context) => AnimaPage()
+    "/animation_page": (BuildContext context) => AnimaPage(),
+    "/baidu_page": (BuildContext context) => FirstPage(),
+    "/life_cycle": (BuildContext context) => CounterWidget()
   };
 
   static final routeIntroList = <String, String>{
     "/nav_page": "跳转  nav page  测试页面",
     "/my_home_page": "跳转到  星星测试页面",
-    "/animation_page": "day2 动画测试页面"
+    "/animation_page": "day2 动画测试页面",
+    "/baidu_page": "跳转百度",
+    "/life_cycle": "生命周期测试"
   };
 }
