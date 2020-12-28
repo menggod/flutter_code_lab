@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_code_test/apple/day2/anima_pager.dart';
 import 'package:flutter_code_test/draw/day02/home.dart';
 import 'package:flutter_code_test/draw/day04/main.dart';
 
@@ -15,11 +16,13 @@ class Cons {
 
   static final routeList = <String, WidgetBuilder>{
     "/nav_page": (BuildContext context) => NavPage(),
-    "/my_home_page": (BuildContext context) => MyHomePage()
+    "/my_home_page": (BuildContext context) => MyHomePage(),
+    "/animation_page": (BuildContext context) => AnimaPage()
   };
 
   static final routeIntroList = <String, String>{
     "/nav_page": "跳转  nav page  测试页面",
-    "/my_home_page": "跳转到  星星测试页面"
+    "/my_home_page": "跳转到  星星测试页面",
+    "/animation_page": "day2 动画测试页面"
   };
 }
