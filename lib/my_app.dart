@@ -3,6 +3,7 @@ import 'package:flutter/material.dart' hide Action, Page;
 import 'package:flutter_code_test/global/cons.dart';
 import 'package:flutter_code_test/list/page.dart';
 import 'package:flutter_code_test/list_enter/page.dart';
+import 'package:flutter_code_test/page/unknown_page.dart';
 import 'package:flutter_code_test/page_first/page.dart';
 import 'package:flutter_code_test/page_second/page.dart';
 import 'package:flutter_code_test/test1/page.dart';
@@ -23,6 +24,7 @@ Widget createApp() {
 
   return MaterialApp(
     routes: Cons.routeList,
+    onUnknownRoute: (RouteSettings setting) => MaterialPageRoute(builder: (context) => UnknownPage()),
     title: '测试',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(
