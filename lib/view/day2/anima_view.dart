@@ -23,7 +23,7 @@ class AnimaView extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     var winSize = MediaQuery.of(context).size;
     drawGrid(canvas, winSize);
-    drawCoo(canvas, new Size(160, 320), winSize);
+    // drawCoo(canvas, new Size(160, 320), winSize);
 
     canvas.translate(160, 320);
 
