@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/apple/day2/anima_pager.dart';
 import 'package:flutter_code_test/draw/day02/home.dart';
+import 'package:flutter_code_test/draw/day02/page/crash_page.dart';
 import 'package:flutter_code_test/draw/day04/main.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle.dart';
 import 'package:flutter_code_test/page/test_image.dart';
@@ -23,7 +24,8 @@ class Cons {
     "/animation_page": (BuildContext context) => AnimaPage(),
     "/baidu_page": (BuildContext context) => FirstPage(),
     "/life_cycle": (BuildContext context) => CounterWidget(),
-    "/test_image": (BuildContext context) => TestImagePage()
+    "/test_image": (BuildContext context) => TestImagePage(),
+    "/crash_page": (BuildContext context) => CrashPage()
   };
 
   static final routeIntroList = <String, String>{
@@ -32,6 +34,7 @@ class Cons {
     "/animation_page": "day2 动画测试页面",
     "/baidu_page": "跳转百度",
     "/life_cycle": "生命周期测试",
-    "/test_image": "测试图片"
+    "/test_image": "测试图片",
+    "/crash_page": "崩溃测试"
   };
 }

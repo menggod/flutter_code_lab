@@ -1,6 +1,22 @@
+import 'dart:io';
+
 main() {
-  var person = Person.age(12);
-  print('menggod main: ${person.toString()}');
+  // var person = Person.age(12);
+  // print('menggod main: ${person.toString()}');
+
+  testCatch();
+}
+
+void testCatch() async {
+  var dir = new Directory('/tmp11111');
+  var dirList = dir.list();
+  await for (FileSystemEntity f in dirList) {
+    if (f is File) {
+      print('Found file ${f.path}');
+    } else if (f is Directory) {
+      print('Found dir ${f.path}');
+    }
+  }
 }
 
 class Person {
@@ -20,13 +36,12 @@ class Person {
   }
 }
 
-
-class Singleton{
-
+class Singleton {
   Singleton._privateConstructor();
 
   static final Singleton _instance = Singleton._privateConstructor();
 
-  static Singleton get instance { return _instance;}
-
+  static Singleton get instance {
+    return _instance;
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/draw/day02/page/home_page.dart';
 import 'package:flutter_code_test/draw/day02/page/other_page.dart';
@@ -35,16 +37,23 @@ class _NavPageState extends State<NavPage> {
   }
 
   _buildContent() => <Widget>[
-    HomePage(),
-    AcrPage(),
-    LovePage(),
-    NotePage(),
-    MePage(),
-  ];
+        HomePage(),
+        AcrPage(),
+        LovePage(),
+        NotePage(),
+        MePage(),
+      ];
 
   List<BottomNavigationBarItem> _buildBottomItems() {
+    String hh = "";
+    hh = null;
+
+
     return Cons.bottomNavMap.keys
-        .map((e) => BottomNavigationBarItem(icon: Icon(Cons.bottomNavMap[e]), label: e, backgroundColor: Colors.pinkAccent))
+        .map((e) => BottomNavigationBarItem(
+            icon: Icon(Cons.bottomNavMap[e]),
+            label: e,
+            backgroundColor: Colors.pinkAccent))
         .toList();
   }
 
