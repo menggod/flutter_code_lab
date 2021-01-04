@@ -6,6 +6,7 @@ import 'package:flutter_code_test/draw/day04/main.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle.dart';
 import 'package:flutter_code_test/page/test_image.dart';
 import 'package:flutter_code_test/page_first/view.dart';
+import 'package:flutter_code_test/test1/bug_page.dart';
 
 class Cons {
   static const homeTabs = <String>["展示集", "神画技", "趣谈集", "bug 集"];
@@ -25,7 +26,8 @@ class Cons {
     "/baidu_page": (BuildContext context) => FirstPage(),
     "/life_cycle": (BuildContext context) => CounterWidget(),
     "/test_image": (BuildContext context) => TestImagePage(),
-    "/crash_page": (BuildContext context) => CrashPage()
+    "/crash_page": (BuildContext context) => CrashPage(),
+    "/bug_page": (BuildContext context) => BugPage()
   };
 
   static final routeIntroList = <String, String>{
@@ -35,6 +37,7 @@ class Cons {
     "/baidu_page": "跳转百度",
     "/life_cycle": "生命周期测试",
     "/test_image": "测试图片",
-    "/crash_page": "崩溃测试"
+    "/crash_page": "崩溃测试",
+    "/bug_page": "测试 context"
   };
 }
