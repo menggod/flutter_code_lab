@@ -18,22 +18,29 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Stack(
-        alignment: Alignment.topLeft,
-        children: [
-          SquareGridView(),
-          // Container(
-          //   width: double.infinity,
-          //   height: double.infinity,
-          //   child: CustomPaint(
-          //     painter: TestPathPainter(),
-          //   ),
+      child: GestureDetector(
+        onPanUpdate: _onPanUpdate,
+        child: Stack(
+          alignment: Alignment.topLeft,
+          children: [
+            SquareGridView(),
+            // Container(
+            //   width: double.infinity,
+            //   height: double.infinity,
+            //   child: CustomPaint(
+            //     painter: TestPathPainter(),
+            //   ),
 
-          // ),
-          HandleWidget(),
-        ],
+            // ),
+            HandleWidget(),
+          ],
+        ),
       ),
     );
+  }
+
+  void _onPanUpdate(DragUpdateDetails details) {
+    final offset = details.localPosition;
   }
 }
 
