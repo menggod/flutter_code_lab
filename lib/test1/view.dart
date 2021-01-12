@@ -21,6 +21,7 @@ Widget _bodyWidget(Test1State state, dispatch) {
 
           ///使用state中的变量，控住数据的变换
           Text(state.count.toString()),
+
         ],
       ),
     ),

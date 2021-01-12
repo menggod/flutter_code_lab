@@ -1,21 +1,31 @@
 import 'dart:io';
 
-import 'package:flutter_code_test/api/api.dart';
+var a = A(20, "haha");
 
 main() {
   // var person = Person.age(12);
   // print('menggod main: ${person.toString()}');
 
   // testCatch();
-  // var a = A(20, "haha");
+  //  a = A(20, "haha");
+  // a.age = 30;
+  // print('menggod main: ${a.hashCode}');
+  // // a = A(20, "haha");
+  // a.age = 30;
+  // print('menggod main: ${a.hashCode}');
+
+  var a = Node("haha");
+  print('menggod main: ${a.hashCode}');
+  a = Node("hehe");
+  print('menggod main: ${a.hashCode}');
   //
   // var b = B(30, "heihei");
-  var dateTime = DateTime.now();
-  var month = dateTime.month;
-  var day = dateTime.day;
-  String num = "$month-$day";
-  String num1 = "$month-$day";
-  print(null==num1);
+  // var dateTime = DateTime.now();
+  // var month = dateTime.month;
+  // var day = dateTime.day;
+  // String num = "$month-$day";
+  // String num1 = "$month-$day";
+  // print(null==num1);
 }
 
 void testCatch() async {
@@ -28,6 +38,17 @@ void testCatch() async {
       print('Found dir ${f.path}');
     }
   }
+}
+
+class Node {
+  String name;
+  int age;
+
+  factory Node(String name) {
+    return Node._a(name, 1);
+  }
+
+  Node._a(this.name,this.age);
 }
 
 class A extends Person {
@@ -50,7 +71,9 @@ class Person {
   String name;
   var test = 3333;
 
-  Person(this.age, this.name);
+  Person(this.age, this.name) {
+    print('menggod 1111--> {age: $age, name: $name}');
+  }
 
   Person.age(this.age) {
     print('menggod test:$test ');
