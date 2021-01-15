@@ -9,6 +9,7 @@ import 'package:flutter_code_test/page_second/page.dart';
 import 'package:flutter_code_test/test1/page.dart';
 
 import 'draw/day02/home.dart';
+import 'global/router_observer.dart';
 import 'splash/page.dart';
 
 Widget createApp() {
@@ -21,10 +22,13 @@ Widget createApp() {
     "list": ListPage(),
   });
 
+  final MyRouteObserver _myRouteObserver = MyRouteObserver();
 
   return MaterialApp(
     routes: Cons.routeList,
-    onUnknownRoute: (RouteSettings setting) => MaterialPageRoute(builder: (context) => UnknownPage()),
+    navigatorObservers: [_myRouteObserver],
+    onUnknownRoute: (RouteSettings setting) =>
+        MaterialPageRoute(builder: (context) => UnknownPage()),
     title: '测试',
     debugShowCheckedModeBanner: false,
     theme: ThemeData(

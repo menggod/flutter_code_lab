@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
 
-// counter计数器。
-// 理解state生命周期
-
 class CounterWidget extends StatefulWidget {
   const CounterWidget({Key key, this.initValue: 0});
 
   final int initValue;
+
   @override
   _CounterWidgetState createState() => _CounterWidgetState();
 }
 
-class _CounterWidgetState extends State<CounterWidget> {
+class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserver {
   int _counter;
   List dataList;
-
-  @override
-  void initState() {
-    super.initState();
-    _counter = widget.initValue;
-    print(mounted); // 生命周期内包含
-    // _fetchData();
-  }
 
   Future<Null> _fetchData() async {
     await Future.delayed(Duration(seconds: 5), () {
@@ -36,41 +26,81 @@ class _CounterWidgetState extends State<CounterWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-          child: FlatButton(
-        child: Text('$_counter'),
-        onPressed: () => setState(() => ++_counter),
-      )),
+      body: SafeArea(
+        child: Center(
+            child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Text('这个是生命周期测试页面一'),
+              MaterialButton(onPressed: () => {
+                Navigator.pushNamed(context, "/life_cycle_2")
+              },color: Colors.pink,textColor: Colors.white, child: Text('跳转到页面二'),),
+              FlatButton(
+                color: Colors.blue,
+                child: Text('$_counter'),
+                onPressed: () => setState(() => ++_counter),
+              ),
+            ])),
+      ),
     );
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+    _counter = widget.initValue;
+    print('menggod  lifecycle  initState: ');
+    // _fetchData();
   }
 
   @override
   void didUpdateWidget(CounterWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print("didUpdateWidget");
+    print('menggod lifecycle didUpdateWidget: ');
   }
 
   @override
-  void deactivate() { // 失效
+  void deactivate() {
+    // 失效
     super.deactivate();
-    print('deactivate');
+    print('menggod lifecycle deactivate: ');
   }
 
   @override
-  void dispose() {// 丢掉, 处理, 安置
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    // 丢掉, 处理, 安置
     super.dispose();
-    print('dispose');
+    print('menggod lifecycle dispose: ');
   }
 
   @override
-  void reassemble() {// 重组
+  void reassemble() {
+    // 重组
     super.reassemble();
-    print('reassemble');
+    print('menggod lifecycle reassemble: ');
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('didChangeDependencies');
+    print('menggod lifecycle didChangeDependencies: ');
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        print('menggod lifecycle didChangeAppLifecycleState: resumed');
+        break;
+      case AppLifecycleState.inactive:
+        print('menggod lifecycle didChangeAppLifecycleState: inactive');
+        break;
+      case AppLifecycleState.paused:
+        print('menggod lifecycle didChangeAppLifecycleState: paused');
+        break;
+      case AppLifecycleState.detached:
+        print('menggod lifecycle didChangeAppLifecycleState: detached');
+        break;
+    }
   }
 }
