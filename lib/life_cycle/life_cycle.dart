@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 
 class CounterWidget extends StatefulWidget {
-  const CounterWidget({Key key, this.initValue: 0});
 
   final int initValue;
 
   @override
-  _CounterWidgetState createState() => _CounterWidgetState();
+  _CounterWidgetState createState() {
+    print('menggod lifecycle createState: ');
+    return  _CounterWidgetState();
+  }
+
+  CounterWidget({this.initValue=0}){
+    print('menggod lifecycle 构造: ');
+  }
 }
 
 class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserver {
@@ -25,6 +31,7 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
+    print('menggod  lifecycle build: ');
     return Scaffold(
       body: SafeArea(
         child: Center(
