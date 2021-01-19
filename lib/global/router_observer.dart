@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_code_test/kit/apm.dart';
+import 'package:flutter_code_test/kit/memory_kit.dart';
+import 'package:flutter_code_test/kit/vm_helper.dart';
 
 class MyRouteObserver<R extends Route<dynamic>> extends RouteObserver<R> {
   final List _pagesList = [];
+  MemoryKit kit = ApmKitManager.instance.getKit<MemoryKit>(ApmKitName.KIT_MEMORY);
 
   @override
   void didPush(Route route, Route previousRoute) {
@@ -9,6 +13,49 @@ class MyRouteObserver<R extends Route<dynamic>> extends RouteObserver<R> {
     // print('ob-->didPush route: ${route},previousRoute:$previousRoute');
     _pagesList.add(route.settings.name);
     print('ob-->didPush route: ${route.settings.name}<--->${_pagesList.toString()}');
+    // _processPush();
+  }
+
+  _processPush() async {
+    await VmHelper.instance.gc();
+    await VmHelper.instance.dumpAllocationProfile();
+    await VmHelper.instance.updateMemoryUsage();
+    var length = -1;
+    length = kit.getAllocationProfile()?.members?.where((element) {
+      if (element.classRef.name.toLowerCase().contains("LifeCycle2".toLowerCase())) {
+        print('menggod router_observer _processPush: ${element.toString()}');
+      }
+      if (element.classRef.name
+          .toLowerCase()
+          .contains("ScrollController".toLowerCase())) {
+        print('menggod router_observer _processPush: ${element.toString()}');
+      }
+      return element.bytesCurrent != 0;
+    })?.length;
+
+    print('menggod router_observer didPush: $length');
+  }
+
+  _processPop() async {
+    await VmHelper.instance.gc();
+    await VmHelper.instance.dumpAllocationProfile();
+    await VmHelper.instance.updateMemoryUsage();
+    var length = -1;
+    length = kit.getAllocationProfile()?.members?.where((element) {
+      if (element.classRef.name.toLowerCase().contains("LifeCycle2".toLowerCase())) {
+        print('menggod router_observer _processPop: ${element.toString()}');
+      }
+      if (element.classRef.name
+          .toLowerCase()
+          .contains("ScrollController".toLowerCase())) {
+        print('menggod router_observer _processPop: ${element.toString()}');
+      }
+      return element.bytesCurrent != 0;
+    })?.length;
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      print('menggod router_observer didPop:  $length');
+    });
   }
 
   @override
@@ -17,6 +64,7 @@ class MyRouteObserver<R extends Route<dynamic>> extends RouteObserver<R> {
     // print('ob-->didPop route: $route,previousRoute:$previousRoute');
     _pagesList.removeAt(_pagesList.lastIndexOf(route.settings.name));
     print('ob-->didPop route: ${route.settings.name}<--->${_pagesList.toString()}');
+    // _processPop();
   }
 
   @override

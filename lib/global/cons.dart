@@ -3,6 +3,7 @@ import 'package:flutter_code_test/apple/day2/anima_pager.dart';
 import 'package:flutter_code_test/draw/day02/home.dart';
 import 'package:flutter_code_test/draw/day02/page/crash_page.dart';
 import 'package:flutter_code_test/draw/day04/main.dart';
+import 'package:flutter_code_test/kit/memory_kit.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle_2.dart';
 import 'package:flutter_code_test/page/test_image.dart';
@@ -29,7 +30,8 @@ class Cons {
     "/life_cycle_2": (BuildContext context) => LifeCycle2(),
     "/test_image": (BuildContext context) => TestImagePage(),
     "/crash_page": (BuildContext context) => CrashPage(),
-    "/bug_page": (BuildContext context) => BugPage()
+    "/bug_page": (BuildContext context) => BugPage(),
+    "/memory": (BuildContext context) => MemoryPageContainer()
   };
 
   static final routeIntroList = <String, String>{
@@ -41,6 +43,9 @@ class Cons {
     "/life_cycle_2": "生命周期测试2",
     "/test_image": "测试图片",
     "/crash_page": "崩溃测试",
-    "/bug_page": "测试 context"
+    "/bug_page": "测试 context",
+    "/memory": "内存测试"
   };
+
+  static final   GlobalKey appKey = new GlobalKey();
 }

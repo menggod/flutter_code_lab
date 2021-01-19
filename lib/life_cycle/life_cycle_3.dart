@@ -7,21 +7,24 @@ class LifeCycle3 extends StatefulWidget {
 }
 
 class _LifeCycle3State extends State<LifeCycle3> {
-
+  var _controller = ScrollController();
   @override
   Widget build(BuildContext context) {
     print('menggod build: LifeCycle3');
     return SafeArea(
-      child: Container(
-        color: Colors.white,
-        child: Center(
-          child: Column(children: [
-            OutlineButton(
-              onPressed: () => {Navigator.pop(context)},
-              color: Colors.blue,
-              child: Text('返回'),
-            ),
-          ]),
+      child: SingleChildScrollView(
+        controller: _controller,
+        child: Container(
+          color: Colors.white,
+          child: Center(
+            child: Column(children: [
+              OutlineButton(
+                onPressed: () => {Navigator.pop(context)},
+                color: Colors.blue,
+                child: Text('返回'),
+              ),
+            ]),
+          ),
         ),
       ),
     );
@@ -54,6 +57,7 @@ class _LifeCycle3State extends State<LifeCycle3> {
   @override
   void dispose() {
     super.dispose();
+    // _controller.dispose();
     print('menggod dispose: LifeCycle3');
   }
 }

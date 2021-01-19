@@ -1,8 +1,10 @@
 import 'dart:async';
 
-import 'package:dokit/dokit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_code_test/kit/vm_helper.dart';
 import 'package:flutter_code_test/my_app.dart';
+
+import 'kit/apm.dart';
 
 void main() async {
   // debugProfileBuildsEnabled = true;
@@ -22,6 +24,7 @@ void main() async {
   // ignore: missing_return
   runZonedGuarded<Future<void>>(() {
     WidgetsFlutterBinding.ensureInitialized();
+    ApmKitManager.instance.startUp();
     runApp(createApp());
   }, (Object error, StackTrace stackTrace) async {
     // Whenever an error occurs, call the `_reportError` function. This sends
