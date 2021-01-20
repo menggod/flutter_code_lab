@@ -7,6 +7,7 @@ import 'package:flutter_code_test/kit/memory_kit.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle_2.dart';
 import 'package:flutter_code_test/page/test_image.dart';
+import 'package:flutter_code_test/page/vm_test_page.dart';
 import 'package:flutter_code_test/page_first/view.dart';
 import 'package:flutter_code_test/test1/bug_page.dart';
 
@@ -31,7 +32,8 @@ class Cons {
     "/test_image": (BuildContext context) => TestImagePage(),
     "/crash_page": (BuildContext context) => CrashPage(),
     "/bug_page": (BuildContext context) => BugPage(),
-    "/memory": (BuildContext context) => MemoryPageContainer()
+    "/memory": (BuildContext context) => MemoryPageContainer(),
+    "/vm_page": (BuildContext context) => VmPage()
   };
 
   static final routeIntroList = <String, String>{
@@ -44,8 +46,9 @@ class Cons {
     "/test_image": "测试图片",
     "/crash_page": "崩溃测试",
     "/bug_page": "测试 context",
-    "/memory": "内存测试"
+    "/memory": "内存测试",
+    "/vm_page": "vm 方法测试"
   };
 
-  static final   GlobalKey appKey = new GlobalKey();
+  static final GlobalKey appKey = new GlobalKey();
 }

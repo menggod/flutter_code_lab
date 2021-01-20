@@ -2,6 +2,7 @@ library service_tester;
 
 import 'dart:async';
 import 'dart:developer';
+import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
@@ -12,15 +13,16 @@ import 'package:vm_service/utils.dart';
 import 'version.dart';
 
 class VmHelper {
-  VmHelper._privateConstructor() {}
+  VmHelper._privateConstructor();
 
   static final VmHelper _instance = VmHelper._privateConstructor();
 
   static VmHelper get instance => _instance;
 
-  VmService serviceClient;
+  VmService _serviceClient;
   Version _protocolVersion;
   Version _dartIoVersion;
+
   VM vm;
 
   String isolateId = "";
@@ -34,8 +36,7 @@ class VmHelper {
   AllocationProfile allocationProfile;
   PackageInfo packageInfo;
 
-  Map<String, List<String>> get registeredMethodsForService =>
-      _registeredMethodsForService;
+  Map<String, List<String>> get registeredMethodsForService => _registeredMethodsForService;
   final Map<String, List<String>> _registeredMethodsForService = {};
 
   startConnect() async {
@@ -45,15 +46,16 @@ class VmHelper {
       return;
     }
     Uri uri = convertToWebSocketUrl(serviceProtocolUrl: info.serverUri);
-    serviceClient = await vmServiceConnectUri(uri.toString(), log: StdoutLog());
+    _serviceClient = await vmServiceConnectUri(uri.toString(), log: StdoutLog());
     print('socket connected in service $info');
     connected = true;
 
-    vm = await serviceClient.getVM();
+    vm = await _serviceClient.getVM();
     List<IsolateRef> isolates = vm.isolates;
+
     isolates.forEach((element) async {
       isolateId = element.id;
-      MemoryUsage memoryUsage = await serviceClient.getMemoryUsage(element.id);
+      MemoryUsage memoryUsage = await _serviceClient.getMemoryUsage(element.id);
       memoryInfo[element] = memoryUsage;
     });
     loadExtensionService();
@@ -63,7 +65,7 @@ class VmHelper {
   // 获取flutter版本，目前比较鸡肋，需要借助devtools向vmservice注册的服务来获取,flutter 未 attach的情况下无法使用。
   void loadExtensionService() async {
     final serviceStreamName = await this.serviceStreamName;
-    serviceClient.onEvent(serviceStreamName).listen(handleServiceEvent);
+    _serviceClient.onEvent(serviceStreamName).listen(handleServiceEvent);
     final streamIds = [
       EventStreams.kDebug,
       EventStreams.kExtension,
@@ -79,7 +81,7 @@ class VmHelper {
 
     await Future.wait(streamIds.map((String id) async {
       try {
-        await serviceClient.streamListen(id);
+        await _serviceClient.streamListen(id);
       } catch (e) {
         print(e);
       }
@@ -96,15 +98,14 @@ class VmHelper {
   }
 
   Future<String> get serviceStreamName async =>
-      (await isProtocolVersionSupported(
-          supportedVersion: SemanticVersion(major: 3, minor: 22)))
+      (await isProtocolVersionSupported(supportedVersion: SemanticVersion(major: 3, minor: 22)))
           ? 'Service'
           : '_Service';
 
   Future<bool> isProtocolVersionSupported({
     @required SemanticVersion supportedVersion,
   }) async {
-    _protocolVersion ??= await serviceClient.getVersion();
+    _protocolVersion ??= await _serviceClient.getVersion();
     return isProtocolVersionSupportedNow(supportedVersion: supportedVersion);
   }
 
@@ -138,15 +139,12 @@ class VmHelper {
     );
   }
 
-  Future<Version> getDartIOVersion(String isolateId) =>
-      serviceClient.getDartIOVersion(isolateId);
+  Future<Version> getDartIOVersion(String isolateId) => _serviceClient.getDartIOVersion(isolateId);
 
   void handleServiceEvent(Event e) {
     if (e.kind == EventKind.kServiceRegistered) {
       final serviceName = e.service;
-      _registeredMethodsForService
-          .putIfAbsent(serviceName, () => [])
-          .add(e.method);
+      _registeredMethodsForService.putIfAbsent(serviceName, () => []).add(e.method);
       if (_flutterVersion == '' && serviceName == 'flutterVersion') {
         resolveFlutterVersion();
       }
@@ -159,56 +157,63 @@ class VmHelper {
   }
 
   void resolveFlutterVersion() {
-    callMethod('flutterVersion')?.then(
-            (value) =>
-        _flutterVersion = FlutterVersion
-            .parse(value.json)
-            .version);
+    callMethod('flutterVersion')
+        ?.then((value) => _flutterVersion = FlutterVersion.parse(value.json).version);
   }
 
   Future<Response> callMethod(String method) {
     if (registeredMethodsForService.containsKey(method)) {
-      return (serviceClient.callMethod(registeredMethodsForService[method].last,
+      return (_serviceClient.callMethod(registeredMethodsForService[method].last,
           isolateId: vm.isolates.first.id));
     }
     return null;
   }
 
   updateMemoryUsage() {
-    if (serviceClient != null && connected) {
+    if (_serviceClient != null && connected) {
       List<IsolateRef> isolates = vm.isolates;
       isolates.forEach((element) {
-        serviceClient
-            .getMemoryUsage(element.id)
-            .then((value) => memoryInfo[element] = value);
+        _serviceClient.getMemoryUsage(element.id).then((value) => memoryInfo[element] = value);
       });
     }
   }
 
   dumpAllocationProfile() async {
-    if (serviceClient != null && connected) {
-      serviceClient
+    if (_serviceClient != null && connected) {
+      _serviceClient
           .getAllocationProfile(vm.isolates.first.id)
           .then((value) => allocationProfile = value);
     }
   }
 
   disConnect() async {
-    if (serviceClient != null) {
+    if (_serviceClient != null) {
       print('waiting for client to shut down...');
-      serviceClient.dispose();
+      _serviceClient.dispose();
 
-      await serviceClient.onDone;
+      await _serviceClient.onDone;
       connected = false;
-      serviceClient = null;
+      _serviceClient = null;
       print('service client shut down');
     }
   }
 
-
-  gc() async{
+  gc() async {
     // await serviceClient.getAllocationProfile(isolateId, gc: true);
     // print('menggod vm_helper gc: $isolateId');
+  }
+
+  getScripts() async {
+    var scripts = await _serviceClient.getScripts(isolateId);
+    print('menggod vm_helper getScripts: ${scripts.toString()}');
+  }
+
+  getRetainingPath(String targetId) {
+    _serviceClient.getRetainingPath(isolateId, targetId, 1000);
+  }
+
+  invoke(String targetId) {
+    // _serviceClient.invoke(isolateId, targetId, selector, argumentIds)
   }
 }
 
