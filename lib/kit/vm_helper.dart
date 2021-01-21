@@ -263,12 +263,13 @@ class VmHelper {
     print('menggod vm_helper getLibrary-->${libRef.type}  lib obj-->${libBean.type}');
     print('-------------------------------------------');
 
-    var toolsId = await getToolsId();
-    var id = await obj2Id(_serviceClient, isolateId, toolsId, libBean);
+
+    // var toolsId = await getToolsId();
+    // var id = await obj2Id(_serviceClient, isolateId, libBean.id, libBean);
 
     // print('menggod vm_helper getLibrary: $id');
-    var path = await _serviceClient.getRetainingPath(isolateId, id, 1000);
-    print('menggod vm_helper getLibrary: ${path.toString()}');
+    // var path = await _serviceClient.getRetainingPath(isolateId, id, 1000);
+    // print('menggod vm_helper getLibrary: ${path.toString()}');
   }
 
   Future<String> getToolsId() async {

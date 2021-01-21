@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dokit/dokit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/my_app.dart';
 
@@ -36,7 +35,6 @@ void main() async {
 
     ApmKitManager.instance.startUp();
     runApp(createApp());
-
   }, (Object error, StackTrace stackTrace) async {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
