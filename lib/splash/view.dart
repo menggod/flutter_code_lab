@@ -17,11 +17,8 @@ Widget buildView(SplashState state, Dispatch dispatch, ViewService viewService) 
 }
 
 Container _buildBody(BuildContext context) {
-  var _entry = OverlayEntry(builder: (context) {
-    return AppFloatBox();
-  });
-
   return Container(
+    key: Cons.appKey,
     child: Stack(
       alignment: Alignment.topLeft,
       children: [

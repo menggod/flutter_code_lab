@@ -50,5 +50,10 @@ class Cons {
     "/vm_page": "vm 方法测试"
   };
 
-  static final GlobalKey appKey = new GlobalKey();
+  // 放置dokit悬浮窗的容器
+  static GlobalKey rootKey = new GlobalKey();
+
+  // 放置应用真实widget的容器
+  static GlobalKey appKey = new GlobalKey();
+
 }

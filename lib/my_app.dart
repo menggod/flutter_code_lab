@@ -25,7 +25,7 @@ Widget createApp() {
   final MyRouteObserver _myRouteObserver = MyRouteObserver();
 
   return MaterialApp(
-    key: Cons.appKey,
+    key: Cons.rootKey,
     routes: Cons.routeList,
     navigatorObservers: [_myRouteObserver],
     onUnknownRoute: (RouteSettings setting) =>
