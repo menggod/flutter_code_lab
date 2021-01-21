@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dokit/dokit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/kit/vm_helper.dart';
 import 'package:flutter_code_test/my_app.dart';
@@ -25,7 +26,15 @@ void main() async {
   runZonedGuarded<Future<void>>(() {
     WidgetsFlutterBinding.ensureInitialized();
     ApmKitManager.instance.startUp();
-    runApp(createApp());
+    DoKit.runApp(
+        app: DoKitApp(createApp()),
+        useInRelease: true,
+        logCallback: (log) {
+          String i = log;
+        },
+        exceptionCallback: (obj, trace) {
+          print('ttt$obj');
+        });
   }, (Object error, StackTrace stackTrace) async {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.

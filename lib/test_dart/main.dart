@@ -14,10 +14,10 @@ main() {
   // a.age = 30;
   // print('menggod main: ${a.hashCode}');
 
-  var a = Node("haha");
-  print('menggod main: ${a.hashCode}');
-  a = Node("hehe");
-  print('menggod main: ${a.hashCode}');
+  // var a = Node("haha");
+  // print('menggod main: ${a.hashCode}');
+  // a = Node("hehe");
+  // print('menggod main: ${a.hashCode}');
   //
   // var b = B(30, "heihei");
   // var dateTime = DateTime.now();
@@ -26,6 +26,9 @@ main() {
   // String num = "$month-$day";
   // String num1 = "$month-$day";
   // print(null==num1);
+
+  var list = [1, 2, 3, 4, 5, 56, 6, 7, 8, 9];
+  list.map((e) => print('menggod main main:$e '));
 }
 
 void testCatch() async {
@@ -48,7 +51,7 @@ class Node {
     return Node._a(name, 1);
   }
 
-  Node._a(this.name,this.age);
+  Node._a(this.name, this.age);
 }
 
 class A extends Person {

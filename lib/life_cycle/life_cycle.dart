@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 
 class CounterWidget extends StatefulWidget {
-
   final int initValue;
 
   @override
   _CounterWidgetState createState() {
     print('menggod lifecycle createState: ');
-    return  _CounterWidgetState();
+    return _CounterWidgetState();
   }
 
-  CounterWidget({this.initValue=0}){
+  CounterWidget({this.initValue = 0}) {
     print('menggod lifecycle 构造: ');
   }
 }
@@ -32,22 +31,40 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
   @override
   Widget build(BuildContext context) {
     print('menggod  lifecycle build: ');
-    return Scaffold(
+    var _scaffold = Scaffold(
       body: SafeArea(
         child: Center(
             child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-              Text('这个是生命周期测试页面一'),
-              MaterialButton(onPressed: () => {
-                Navigator.pushNamed(context, "/life_cycle_2")
-              },color: Colors.pink,textColor: Colors.white, child: Text('跳转到页面二'),),
-              FlatButton(
-                color: Colors.blue,
-                child: Text('$_counter'),
-                onPressed: () => setState(() => ++_counter),
-              ),
-            ])),
+          Text('这个是生命周期测试页面一'),
+          Text(this.hashCode.toString()),
+          MaterialButton(
+            onPressed: () => {Navigator.pushNamed(context, "/life_cycle_2")},
+            color: Colors.purple,
+            textColor: Colors.white,
+            child: Text('跳转到页面二'),
+          ),
+          MaterialButton(
+            onPressed: () => {Navigator.pushNamed(context, "/life_cycle")},
+            color: Colors.pink,
+            textColor: Colors.white,
+            child: Text('跳转到当前页面'),
+          ),
+          MaterialButton(
+            onPressed: () => {Navigator.pushNamed(context, "/vm_page")},
+            color: Colors.green,
+            textColor: Colors.white,
+            child: Text('内存检测页面'),
+          ),
+          FlatButton(
+            color: Colors.blue,
+            child: Text('$_counter'),
+            onPressed: () => setState(() => ++_counter),
+          ),
+        ])),
       ),
     );
+
+    return _scaffold;
   }
 
   @override

@@ -6,8 +6,8 @@ class LifeCycle3 extends StatefulWidget {
   _LifeCycle3State createState() => _LifeCycle3State();
 }
 
-class _LifeCycle3State extends State<LifeCycle3> {
-  var _controller = ScrollController();
+class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
+  var _controller = TestController();
   @override
   Widget build(BuildContext context) {
     print('menggod build: LifeCycle3');
@@ -34,6 +34,7 @@ class _LifeCycle3State extends State<LifeCycle3> {
   void initState() {
     super.initState();
     print('menggod initState: LifeCycle3');
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -60,4 +61,9 @@ class _LifeCycle3State extends State<LifeCycle3> {
     // _controller.dispose();
     print('menggod dispose: LifeCycle3');
   }
+}
+
+
+class TestController extends ScrollController{
+
 }

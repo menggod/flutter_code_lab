@@ -13,9 +13,9 @@ class LifeCycle2 extends StatelessWidget {
           child: Column(children: [
             OutlineButton(
               onPressed: () => {
-                // Future.delayed(const Duration(hours: 1), () {
-                //   print('menggod life_cycle_2 build: ');
-                // }),
+                Future.delayed(const Duration(hours: 1), () {
+                  print('menggod life_cycle_2 build: ');
+                }),
                 Navigator.maybePop(context)
               },
               color: Colors.blue,

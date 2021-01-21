@@ -2,7 +2,6 @@ library service_tester;
 
 import 'dart:async';
 import 'dart:developer';
-import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
@@ -11,6 +10,20 @@ import 'package:vm_service/vm_service_io.dart';
 import 'package:vm_service/utils.dart';
 
 import 'version.dart';
+
+int _key = 0;
+
+/// 顶级函数，必须常规方法，生成 key 用
+String generateNewKey() {
+  return "${++_key}";
+}
+
+Map<String, dynamic> _objCache = Map();
+
+/// 顶级函数，根据 key 返回指定对象
+dynamic keyToObj(String key) {
+  return _objCache[key];
+}
 
 class VmHelper {
   VmHelper._privateConstructor();
@@ -204,8 +217,72 @@ class VmHelper {
   }
 
   getScripts() async {
-    var scripts = await _serviceClient.getScripts(isolateId);
-    print('menggod vm_helper getScripts: ${scripts.toString()}');
+    ScriptList scripts = await _serviceClient.getScripts(isolateId);
+    var list = scripts.scripts;
+    var list2 = list.where((element) => element.uri.contains("vm_helper.dart")).toList();
+    ScriptRef bean = list2.first;
+
+    // for (int i = 0; i < libraries.length; i++) {
+    //   print('menggod  libraries: ${libraries[i]}');
+    // }
+    //
+    // Script realObject = await _serviceClient.getObject(isolateId, librariesBean.id);
+
+    print('menggod vm_helper ScriptRef:${list2.length} ${bean.toString()} ');
+
+    Script object = await _serviceClient.getObject(isolateId, bean.id);
+    // print('menggod vm_helper object: ${object.source}');
+    // var object = await _serviceClient.getObject(isolateId, e.id);
+
+    // _serviceClient.invoke(isolateId, targetId, selector, argumentIds)
+    print('menggod vm_helper id Vs id: ${object.id} -- ${bean.id}');
+    // var path = await _serviceClient.getRetainingPath(isolateId, object.id, 100);
+    // print('menggod vm_helper getScripts: ${path.toString()}');
+
+    var model = await _serviceClient.getInstances(isolateId, object.classRef.id, 100000);
+
+    // var model = await obj2Id(_serviceClient, realObject, isolateId, libraryId);
+
+    // Response model = await _serviceClient.invoke(isolateId, libraryId, "print", []);
+    // var response = await _serviceClient.invoke(isolateId, libraryId, "generateNewKey", []);
+
+    // print('menggod vm_helper instance: ${model.toString()}');
+    print('menggod vm_helper getScripts: ');
+    return scripts;
+  }
+
+  getLibrary() async {
+    var isolate = await _serviceClient.getIsolate(isolateId);
+    var libraries = isolate.libraries;
+    var refList = libraries.where((element) => element.uri.contains("life_cycle.dart")).toList();
+    var libRef = refList.first;
+    print('menggod vm_helper getLibrary-->${refList.length}  lib ref-->${libRef.toString()}');
+    Library libBean = await _serviceClient.getObject(isolateId, libRef.id);
+
+    print('menggod vm_helper getLibrary-->${libRef.id}  lib obj-->${libBean.id}');
+    print('menggod vm_helper getLibrary-->${libRef.type}  lib obj-->${libBean.type}');
+    print('-------------------------------------------');
+
+    var toolsId = await getToolsId();
+    var id = await obj2Id(_serviceClient, isolateId, toolsId, libBean);
+
+    // print('menggod vm_helper getLibrary: $id');
+    var path = await _serviceClient.getRetainingPath(isolateId, id, 1000);
+    print('menggod vm_helper getLibrary: ${path.toString()}');
+  }
+
+  Future<String> getToolsId() async {
+    var isolate = await _serviceClient.getIsolate(isolateId);
+    var libraries = isolate.libraries;
+    var refList = libraries.where((element) => element.uri.contains("vm_helper.dart")).toList();
+    var libRef = refList.first;
+    print('menggod vm_helper getLibrary-->${refList.length}  lib ref-->${libRef.toString()}');
+    Library libBean = await _serviceClient.getObject(isolateId, libRef.id);
+    return libBean.id;
+  }
+
+  getScriptsFuture() {
+    return _serviceClient.getScripts(isolateId);
   }
 
   getRetainingPath(String targetId) {
@@ -214,6 +291,35 @@ class VmHelper {
 
   invoke(String targetId) {
     // _serviceClient.invoke(isolateId, targetId, selector, argumentIds)
+  }
+
+  getIsolateBean() {
+    return _serviceClient.getIsolate(isolateId);
+  }
+
+  /// 对象转 id
+  Future<String> obj2Id(VmService service, String isolateId, String libraryId, dynamic obj) async {
+    // 找到当前 Library。这里可以遍历 isolate 的 libraries 字段
+    // 根据 uri 筛选出当前 Library 即可，具体不展开了
+
+    // 用 vm service 执行 generateNewKey 函数
+    InstanceRef keyRef = await service.invoke(isolateId, libraryId, "generateNewKey", []);
+    // 获取 keyRef 的 String 值
+    // 这是唯一一个能把 ObjRef 类型转为数值的 api
+    String key = keyRef.valueAsString;
+
+    _objCache[key] = obj;
+    try {
+      // 调用 keyToObj 顶级函数，传入 key，获取 obj
+      InstanceRef valueRef = await service.invoke(isolateId, libraryId, "keyToObj",
+          // 这里注意，vm_service 需要的是 id，不是值
+          [keyRef.id]);
+      // 这里的 id 就是 obj 对应的 id
+      return valueRef.id;
+    } finally {
+      _objCache.remove(key);
+    }
+    return null;
   }
 }
 
