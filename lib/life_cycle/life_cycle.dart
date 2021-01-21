@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_code_test/view/float_btn.dart';
 
 class CounterWidget extends StatefulWidget {
   final int initValue;
@@ -30,6 +31,11 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
+
+    var _entry = OverlayEntry(builder: (context) {
+      return FloatBtn();
+    });
+
     print('menggod  lifecycle build: ');
     var _scaffold = Scaffold(
       body: SafeArea(
@@ -54,6 +60,14 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
             color: Colors.green,
             textColor: Colors.white,
             child: Text('内存检测页面'),
+          ),
+          MaterialButton(
+            onPressed: () => {
+              Overlay.of(context).insert(_entry)
+            },
+            color: Colors.yellow,
+            textColor: Colors.black,
+            child: Text('显示悬浮'),
           ),
           FlatButton(
             color: Colors.blue,

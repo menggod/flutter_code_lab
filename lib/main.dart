@@ -24,16 +24,19 @@ void main() async {
   // ignore: missing_return
   runZonedGuarded<Future<void>>(() {
     WidgetsFlutterBinding.ensureInitialized();
+    // DoKit.runApp(
+    //     app: DoKitApp(createApp()),
+    //     useInRelease: true,
+    //     logCallback: (log) {
+    //       String i = log;
+    //     },
+    //     exceptionCallback: (obj, trace) {
+    //       print('ttt$obj');
+    //     });
+
     ApmKitManager.instance.startUp();
-    DoKit.runApp(
-        app: DoKitApp(createApp()),
-        useInRelease: true,
-        logCallback: (log) {
-          String i = log;
-        },
-        exceptionCallback: (obj, trace) {
-          print('ttt$obj');
-        });
+    runApp(createApp());
+
   }, (Object error, StackTrace stackTrace) async {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.
