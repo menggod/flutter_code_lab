@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/global/cons.dart';
 import 'package:flutter_code_test/utils/color_utils.dart';
+import 'package:flutter_code_test/view/float_box.dart';
 import 'package:flutter_code_test/view/square_grid_view.dart';
 
 import 'state.dart';
@@ -12,10 +13,14 @@ Widget buildView(SplashState state, Dispatch dispatch, ViewService viewService) 
     data.add(PoemItem(title: list[i], summary: Cons.routeIntroList[list[i]]));
   }
 
-  return Scaffold(body: _buildBody());
+  return Scaffold(body: _buildBody(viewService.context));
 }
 
-Container _buildBody() {
+Container _buildBody(BuildContext context) {
+  var _entry = OverlayEntry(builder: (context) {
+    return AppFloatBox();
+  });
+
   return Container(
     child: Stack(
       alignment: Alignment.topLeft,
@@ -31,7 +36,7 @@ Container _buildBody() {
         ),
         SafeArea(
           child: _buildRealContainer(),
-        )
+        ),
       ],
     ),
   );
