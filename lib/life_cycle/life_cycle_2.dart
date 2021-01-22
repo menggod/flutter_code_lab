@@ -10,7 +10,7 @@ class LifeCycle2 extends StatelessWidget {
       child: Container(
         color: Colors.white,
         child: Center(
-          child: Column(children: [
+          child: Flex(direction: Axis.vertical, children: [
             OutlineButton(
               onPressed: () => {
                 Future.delayed(const Duration(hours: 1), () {
@@ -21,11 +21,13 @@ class LifeCycle2 extends StatelessWidget {
               color: Colors.blue,
               child: Text('返回'),
             ),
-            Text('当前页面是生命周期第二个页面'),
+            Text(
+              '当前页面是生命周期第二个页面',
+              style: TextStyle(fontSize: 12, decoration: TextDecoration.none),
+            ),
             FlatButton(
                 onPressed: () => {
-                      Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => LifeCycle3()))
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => LifeCycle3()))
                     },
                 color: Colors.green,
                 child: Text('跳转三'))

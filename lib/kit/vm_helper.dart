@@ -55,12 +55,12 @@ class VmHelper {
   startConnect() async {
     ServiceProtocolInfo info = await Service.getInfo();
     if (info == null || info.serverUri == null) {
-      print("service  protocol url is null,start vm service fail");
+      debugPrint("service  protocol url is null,start vm service fail");
       return;
     }
     Uri uri = convertToWebSocketUrl(serviceProtocolUrl: info.serverUri);
     _serviceClient = await vmServiceConnectUri(uri.toString(), log: StdoutLog());
-    print('socket connected in service $info');
+    debugPrint('socket connected in service $info');
     connected = true;
 
     vm = await _serviceClient.getVM();
@@ -96,7 +96,7 @@ class VmHelper {
       try {
         await _serviceClient.streamListen(id);
       } catch (e) {
-        print(e);
+        debugPrint(e);
       }
     }));
     resolveFlutterVersion();
@@ -201,53 +201,31 @@ class VmHelper {
 
   disConnect() async {
     if (_serviceClient != null) {
-      print('waiting for client to shut down...');
+      debugPrint('waiting for client to shut down...');
       _serviceClient.dispose();
 
       await _serviceClient.onDone;
       connected = false;
       _serviceClient = null;
-      print('service client shut down');
+      debugPrint('service client shut down');
     }
   }
 
   gc() async {
     // await serviceClient.getAllocationProfile(isolateId, gc: true);
-    // print('menggod vm_helper gc: $isolateId');
+    // debugPrint('menggod vm_helper gc: $isolateId');
   }
 
   getScripts() async {
     ScriptList scripts = await _serviceClient.getScripts(isolateId);
     var list = scripts.scripts;
-    var list2 = list.where((element) => element.uri.contains("vm_helper.dart")).toList();
+    var list2 = list.where((element) => element.uri.contains("life_cycle.dart")).toList();
     ScriptRef bean = list2.first;
 
-    // for (int i = 0; i < libraries.length; i++) {
-    //   print('menggod  libraries: ${libraries[i]}');
-    // }
-    //
-    // Script realObject = await _serviceClient.getObject(isolateId, librariesBean.id);
+    debugPrint('menggod vm_helper ScriptRef:${list2.length} ${bean.toString()} ');
+    Script script = await _serviceClient.getObject(isolateId, bean.id);
+    debugPrint('menggod vm_helper getScripts: ${script.toString()} ');
 
-    print('menggod vm_helper ScriptRef:${list2.length} ${bean.toString()} ');
-
-    Script object = await _serviceClient.getObject(isolateId, bean.id);
-    // print('menggod vm_helper object: ${object.source}');
-    // var object = await _serviceClient.getObject(isolateId, e.id);
-
-    // _serviceClient.invoke(isolateId, targetId, selector, argumentIds)
-    print('menggod vm_helper id Vs id: ${object.id} -- ${bean.id}');
-    // var path = await _serviceClient.getRetainingPath(isolateId, object.id, 100);
-    // print('menggod vm_helper getScripts: ${path.toString()}');
-
-    var model = await _serviceClient.getInstances(isolateId, object.classRef.id, 100000);
-
-    // var model = await obj2Id(_serviceClient, realObject, isolateId, libraryId);
-
-    // Response model = await _serviceClient.invoke(isolateId, libraryId, "print", []);
-    // var response = await _serviceClient.invoke(isolateId, libraryId, "generateNewKey", []);
-
-    // print('menggod vm_helper instance: ${model.toString()}');
-    print('menggod vm_helper getScripts: ');
     return scripts;
   }
 
@@ -256,20 +234,26 @@ class VmHelper {
     var libraries = isolate.libraries;
     var refList = libraries.where((element) => element.uri.contains("life_cycle.dart")).toList();
     var libRef = refList.first;
-    print('menggod vm_helper getLibrary-->${refList.length}  lib ref-->${libRef.toString()}');
+
     Library libBean = await _serviceClient.getObject(isolateId, libRef.id);
+    debugPrint('menggod vm_helper getLibrary-->${libRef.toString()}  lib obj-->${libBean.toString()}');
+    debugPrint('-------------------------------------------');
 
-    print('menggod vm_helper getLibrary-->${libRef.id}  lib obj-->${libBean.id}');
-    print('menggod vm_helper getLibrary-->${libRef.type}  lib obj-->${libBean.type}');
-    print('-------------------------------------------');
+    var classBean = await _serviceClient.getObject(isolateId, libBean.classes[1].id);
+    debugPrint('menggod vm_helper getLibrary: ${classBean.toString()}');
+    debugPrint('-------------------------------------------');
 
+    var toolsId = await getToolsId();
+    var id = await obj2Id(_serviceClient, isolateId, toolsId, libBean);
+    debugPrint('menggod vm_helper objId: $id');
+    debugPrint('-------------------------------------------');
 
-    // var toolsId = await getToolsId();
-    // var id = await obj2Id(_serviceClient, isolateId, libBean.id, libBean);
+    var obj = await _serviceClient.getObject(isolateId, id);
 
-    // print('menggod vm_helper getLibrary: $id');
-    // var path = await _serviceClient.getRetainingPath(isolateId, id, 1000);
-    // print('menggod vm_helper getLibrary: ${path.toString()}');
+    debugPrint('-------------------------------------------');
+
+    var path = await _serviceClient.getRetainingPath(isolateId, id, 1000);
+    debugPrint('menggod vm_helper getLibrary: ${path.toString()}');
   }
 
   Future<String> getToolsId() async {
@@ -277,7 +261,7 @@ class VmHelper {
     var libraries = isolate.libraries;
     var refList = libraries.where((element) => element.uri.contains("vm_helper.dart")).toList();
     var libRef = refList.first;
-    print('menggod vm_helper getLibrary-->${refList.length}  lib ref-->${libRef.toString()}');
+    debugPrint('menggod vm_helper getLibrary-->${refList.length}  lib ref-->${libRef.toString()}');
     Library libBean = await _serviceClient.getObject(isolateId, libRef.id);
     return libBean.id;
   }
@@ -308,7 +292,12 @@ class VmHelper {
     // 获取 keyRef 的 String 值
     // 这是唯一一个能把 ObjRef 类型转为数值的 api
     String key = keyRef.valueAsString;
-
+    
+    var object = await _serviceClient.getObject(isolateId, keyRef.id);
+    debugPrint('menggod vm_helper obj2Id: ${obj.toString()}');
+    
+    
+    
     _objCache[key] = obj;
     try {
       // 调用 keyToObj 顶级函数，传入 key，获取 obj
@@ -316,6 +305,10 @@ class VmHelper {
           // 这里注意，vm_service 需要的是 id，不是值
           [keyRef.id]);
       // 这里的 id 就是 obj 对应的 id
+
+      var object = await _serviceClient.getObject(isolateId, valueRef.id);
+      debugPrint('menggod vm_helper obj2Id: ${obj.toString()}');
+
       return valueRef.id;
     } finally {
       _objCache.remove(key);
@@ -325,7 +318,7 @@ class VmHelper {
 }
 
 class StdoutLog extends Log {
-  void warning(String message) => print(message);
+  void warning(String message) => debugPrint(message);
 
-  void severe(String message) => print(message);
+  void severe(String message) => debugPrint(message);
 }
