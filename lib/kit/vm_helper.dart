@@ -260,8 +260,33 @@ class VmHelper {
   getObject(dynamic obj) async {
     var toolsId = await getToolsId();
     var id = await obj2Id(_serviceClient, isolateId, toolsId, obj);
-    debugPrint('menggod vm_helper getObject: $id');
+
+    Instance obj2 = await _serviceClient.getObject(isolateId, id);
+    debugPrint('menggod vm_helper getObject: ${obj2.fields.length}');
+    obj2.fields.forEach((element) {
+      debugPrint('menggod vm_helper getObject: ${element.decl.name}');
+      if (element.decl.name == "_owner") {
+        // FieldRef bean1 = element.decl;
+        // debugPrint('menggod vm_helper getObject: ${bean1.json} ');
+      }
+    });
+
+    debugPrint('menggod vm_helper getObject: ');
   }
+
+  // obtainObject(dynamic obj) async {
+  //   var toolsId = await getToolsId();
+  //   var id = await obj2Id(_serviceClient, isolateId, toolsId, obj);
+  //
+  //   Instance obj2 = await _serviceClient.getObject(isolateId, id);
+  //   // obj2.fields.forEach((element) {
+  //   //   if (element.decl.name == "_data") {
+  //   //     debugPrint('menggod vm_helper 111111111111111111111111: $element}');
+  //   //   }
+  //   //   debugPrint('menggod vm_helper getObject: ${element.decl.name}');
+  //   // });
+  //   debugPrint('menggod vm_helper getObject:id--> $id  ${obj2.fields} ');
+  // }
 
   Future<String> getToolsId() async {
     var isolate = await _serviceClient.getIsolate(isolateId);
@@ -298,9 +323,11 @@ class VmHelper {
     // 获取 keyRef 的 String 值
     // 这是唯一一个能把 ObjRef 类型转为数值的 api
     String key = keyRef.valueAsString;
-
-    var object = await _serviceClient.getObject(isolateId, keyRef.id);
-    debugPrint('menggod vm_helper[$key}] 11111: ${object.toString()}');
+    Instance object = await _serviceClient.getObject(isolateId, keyRef.id);
+    debugPrint('menggod obj2Id [$key}] 11111: ${object.toString()}');
+    object.fields.forEach((element) {
+      // debugPrint('menggod vm_helper 11111: ${ element.decl.name}');
+    });
 
     _objCache[key] = obj;
     try {
@@ -310,8 +337,14 @@ class VmHelper {
           [keyRef.id]);
       // 这里的 id 就是 obj 对应的 id
 
-      var object = await _serviceClient.getObject(isolateId, valueRef.id);
-      debugPrint('menggod vm_helper[${valueRef.id}] 22222: ${object.toString()}');
+      Instance object = await _serviceClient.getObject(isolateId, valueRef.id);
+      debugPrint('menggod obj2Id [${valueRef.id}] 22222: ${object.toString()}');
+      object.fields.forEach((element) {
+        // debugPrint('menggod vm_helper 22222: ${ element.decl.name}');
+      });
+
+      var path = await _serviceClient.getRetainingPath(isolateId, object.id, 100);
+      debugPrint('menggod vm_helper obj2Id: $path');
 
       return valueRef.id;
     } finally {

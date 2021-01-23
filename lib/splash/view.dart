@@ -2,7 +2,6 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/global/cons.dart';
 import 'package:flutter_code_test/utils/color_utils.dart';
-import 'package:flutter_code_test/view/float_box.dart';
 import 'package:flutter_code_test/view/square_grid_view.dart';
 
 import 'state.dart';

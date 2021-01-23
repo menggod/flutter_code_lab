@@ -3,7 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/kit/vm_helper.dart';
 
+import 'life_cycle.dart';
+
 class LifeCycle3 extends StatefulWidget {
+  final String name1 = "haha";
   @override
   _LifeCycle3State createState() => _LifeCycle3State();
 }
@@ -146,6 +149,8 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
         debugPrint(
             'menggod --> : ${element.runtimeType}-->${element is RenderObjectElement}-->${element.hashCode}');
         VmHelper.instance.getObject(element);
+      }else{
+        debugPrint('menggod life_cycle_3 filter: null');
       }
       element.visitChildren(filter);
     }
