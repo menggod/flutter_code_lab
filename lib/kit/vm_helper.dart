@@ -257,13 +257,15 @@ class VmHelper {
     debugPrint('menggod vm_helper getLibrary: ${path.toString()}');
   }
 
+  var test1;
   getObject(dynamic obj) async {
+    test1 =  obj;
     var toolsId = await getToolsId();
     var id = await obj2Id(_serviceClient, isolateId, toolsId, obj);
 
     Instance obj2 = await _serviceClient.getObject(isolateId, id);
 
-    var expando = Expando();
+
 
     debugPrint('menggod vm_helper getObject: ${obj2.fields.length}');
     obj2.fields.forEach((element) {
