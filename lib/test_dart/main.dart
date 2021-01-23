@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 var a = A(20, "haha");
 
 main() {
@@ -28,7 +29,9 @@ main() {
   // print(null==num1);
 
   var list = [1, 2, 3, 4, 5, 56, 6, 7, 8, 9];
-  list.map((e) => print('menggod main main:$e '));
+  list.map((e) => print('menggod main map:$e '));
+
+  list.forEach((element) {print('menggod main forEach: $element');});
 }
 
 void testCatch() async {

@@ -236,7 +236,8 @@ class VmHelper {
     var libRef = refList.first;
 
     Library libBean = await _serviceClient.getObject(isolateId, libRef.id);
-    debugPrint('menggod vm_helper getLibrary-->${libRef.toString()}  lib obj-->${libBean.toString()}');
+    debugPrint(
+        'menggod vm_helper getLibrary-->${libRef.toString()}  lib obj-->${libBean.toString()}');
     debugPrint('-------------------------------------------');
 
     var classBean = await _serviceClient.getObject(isolateId, libBean.classes[1].id);
@@ -256,12 +257,17 @@ class VmHelper {
     debugPrint('menggod vm_helper getLibrary: ${path.toString()}');
   }
 
+  getObject(dynamic obj) async {
+    var toolsId = await getToolsId();
+    var id = await obj2Id(_serviceClient, isolateId, toolsId, obj);
+    debugPrint('menggod vm_helper getObject: $id');
+  }
+
   Future<String> getToolsId() async {
     var isolate = await _serviceClient.getIsolate(isolateId);
     var libraries = isolate.libraries;
     var refList = libraries.where((element) => element.uri.contains("vm_helper.dart")).toList();
     var libRef = refList.first;
-    debugPrint('menggod vm_helper getLibrary-->${refList.length}  lib ref-->${libRef.toString()}');
     Library libBean = await _serviceClient.getObject(isolateId, libRef.id);
     return libBean.id;
   }
@@ -292,12 +298,10 @@ class VmHelper {
     // 获取 keyRef 的 String 值
     // 这是唯一一个能把 ObjRef 类型转为数值的 api
     String key = keyRef.valueAsString;
-    
+
     var object = await _serviceClient.getObject(isolateId, keyRef.id);
-    debugPrint('menggod vm_helper obj2Id: ${obj.toString()}');
-    
-    
-    
+    debugPrint('menggod vm_helper[$key}] 11111: ${object.toString()}');
+
     _objCache[key] = obj;
     try {
       // 调用 keyToObj 顶级函数，传入 key，获取 obj
@@ -307,7 +311,7 @@ class VmHelper {
       // 这里的 id 就是 obj 对应的 id
 
       var object = await _serviceClient.getObject(isolateId, valueRef.id);
-      debugPrint('menggod vm_helper obj2Id: ${obj.toString()}');
+      debugPrint('menggod vm_helper[${valueRef.id}] 22222: ${object.toString()}');
 
       return valueRef.id;
     } finally {

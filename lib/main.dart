@@ -34,7 +34,7 @@ void main() async {
     //     });
 
     ApmKitManager.instance.startUp();
-    runApp(createApp());
+    runApp(createSimple());
   }, (Object error, StackTrace stackTrace) async {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.

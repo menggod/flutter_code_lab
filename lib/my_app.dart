@@ -12,6 +12,8 @@ import 'draw/day02/home.dart';
 import 'global/router_observer.dart';
 import 'splash/page.dart';
 
+final MyRouteObserver _myRouteObserver = MyRouteObserver();
+
 Widget createApp() {
   final AbstractRoutes routes = PageRoutes(pages: <String, Page<Object, dynamic>>{
     "splash": SplashPage(),
@@ -21,8 +23,6 @@ Widget createApp() {
     "second": SecondPage(),
     "list": ListPage(),
   });
-
-  final MyRouteObserver _myRouteObserver = MyRouteObserver();
 
   return MaterialApp(
     key: Cons.rootKey,
@@ -42,5 +42,21 @@ Widget createApp() {
         return routes.buildPage(settings.name, settings.arguments);
       });
     },
+  );
+}
+
+Widget createSimple() {
+  return MaterialApp(
+    key: Cons.rootKey,
+    routes: Cons.routeList,
+    navigatorObservers: [_myRouteObserver],
+    initialRoute: "/life_cycle_3",
+    onUnknownRoute: (RouteSettings setting) =>
+        MaterialPageRoute(builder: (context) => UnknownPage()),
+    title: '测试',
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      primarySwatch: Colors.blue,
+    ),
   );
 }
