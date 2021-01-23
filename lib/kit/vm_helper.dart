@@ -262,16 +262,19 @@ class VmHelper {
     var id = await obj2Id(_serviceClient, isolateId, toolsId, obj);
 
     Instance obj2 = await _serviceClient.getObject(isolateId, id);
+
+    var expando = Expando();
+
     debugPrint('menggod vm_helper getObject: ${obj2.fields.length}');
     obj2.fields.forEach((element) {
-      debugPrint('menggod vm_helper getObject: ${element.decl.name}');
+      // debugPrint('menggod vm_helper getObject: ${element.decl}');
       if (element.decl.name == "_owner") {
         // FieldRef bean1 = element.decl;
         // debugPrint('menggod vm_helper getObject: ${bean1.json} ');
       }
     });
 
-    debugPrint('menggod vm_helper getObject: ');
+    // debugPrint('menggod vm_helper getObject: ');
   }
 
   // obtainObject(dynamic obj) async {
@@ -326,7 +329,7 @@ class VmHelper {
     Instance object = await _serviceClient.getObject(isolateId, keyRef.id);
     debugPrint('menggod obj2Id [$key}] 11111: ${object.toString()}');
     object.fields.forEach((element) {
-      // debugPrint('menggod vm_helper 11111: ${ element.decl.name}');
+      debugPrint('menggod vm_helper 11111: ${ element.decl.name}');
     });
 
     _objCache[key] = obj;
@@ -340,7 +343,7 @@ class VmHelper {
       Instance object = await _serviceClient.getObject(isolateId, valueRef.id);
       debugPrint('menggod obj2Id [${valueRef.id}] 22222: ${object.toString()}');
       object.fields.forEach((element) {
-        // debugPrint('menggod vm_helper 22222: ${ element.decl.name}');
+        debugPrint('menggod vm_helper 22222: ${ element.decl.name}');
       });
 
       var path = await _serviceClient.getRetainingPath(isolateId, object.id, 100);

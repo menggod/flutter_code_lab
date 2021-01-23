@@ -150,7 +150,7 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
             'menggod --> : ${element.runtimeType}-->${element is RenderObjectElement}-->${element.hashCode}');
         VmHelper.instance.getObject(element);
       }else{
-        debugPrint('menggod life_cycle_3 filter: null');
+
       }
       element.visitChildren(filter);
     }
