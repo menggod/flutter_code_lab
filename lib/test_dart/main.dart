@@ -28,10 +28,13 @@ main() {
   // String num1 = "$month-$day";
   // print(null==num1);
 
-  var list = [1, 2, 3, 4, 5, 56, 6, 7, 8, 9];
-  list.map((e) => print('menggod main map:$e '));
+  // var list = [1, 2, 3, 4, 5, 56, 6, 7, 8, 9];
+  // list.map((e) => print('menggod main map:$e '));
+  //
+  // list.forEach((element) {print('menggod main forEach: $element');});
 
-  list.forEach((element) {print('menggod main forEach: $element');});
+
+
 }
 
 void testCatch() async {
