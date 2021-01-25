@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle_3.dart';
+import 'package:flutter_code_test/view/leak_widget.dart';
 
 class LifeCycle2 extends StatelessWidget {
   @override
