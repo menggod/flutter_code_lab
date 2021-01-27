@@ -331,7 +331,7 @@ class VmHelper {
     Instance object = await _serviceClient.getObject(isolateId, keyRef.id);
     debugPrint('menggod obj2Id [$key}] 11111: ${object.toString()}');
     object.fields.forEach((element) {
-      debugPrint('menggod vm_helper 11111: ${ element.decl.name}');
+      // debugPrint('menggod vm_helper 11111: ${ element.decl.name}');
     });
 
     _objCache[key] = obj;
@@ -343,7 +343,7 @@ class VmHelper {
       // 这里的 id 就是 obj 对应的 id
 
       Instance object = await _serviceClient.getObject(isolateId, valueRef.id);
-      debugPrint('menggod obj2Id [${valueRef.id}] 22222: ${object.toString()}');
+      // debugPrint('menggod obj2Id [${valueRef.id}] 22222: ${object.toString()}');
       object.fields.forEach((element) {
         debugPrint('menggod vm_helper 22222: ${ element.decl.name}');
       });

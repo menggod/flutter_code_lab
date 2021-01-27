@@ -7,6 +7,7 @@ import 'package:flutter_code_test/page/unknown_page.dart';
 import 'package:flutter_code_test/page_first/page.dart';
 import 'package:flutter_code_test/page_second/page.dart';
 import 'package:flutter_code_test/test1/page.dart';
+import 'package:leak_memory_plugin/ui/leak_widget.dart';
 
 import 'draw/day02/home.dart';
 import 'global/router_observer.dart';
@@ -26,8 +27,8 @@ Widget createApp() {
 
   return MaterialApp(
     key: Cons.rootKey,
-    routes: Cons.routeList,
-    navigatorObservers: [_myRouteObserver],
+    // routes: Cons.routeList,
+    // navigatorObservers: [_myRouteObserver],
     onUnknownRoute: (RouteSettings setting) =>
         MaterialPageRoute(builder: (context) => UnknownPage()),
     title: '测试',
@@ -36,20 +37,25 @@ Widget createApp() {
       primarySwatch: Colors.blue,
     ),
     home: routes.buildPage('splash', null),
-    onGenerateRoute: (RouteSettings settings) {
-      return MaterialPageRoute<Object>(builder: (BuildContext context) {
-        //页面切换风格
-        return routes.buildPage(settings.name, settings.arguments);
-      });
-    },
+    onGenerateRoute: _myGenerateRoute,
+    // onGenerateRoute: (RouteSettings settings) {
+    //   return MaterialPageRoute<Object>(builder: (BuildContext context) {
+    //     //页面切换风格
+    //
+    //
+    //
+    //     return routes.buildPage(settings.name, settings.arguments);
+    //   });
+    // },
   );
 }
 
 Widget createSimple() {
   return MaterialApp(
     key: Cons.rootKey,
-    routes: Cons.routeList,
+    // routes: Cons.routeList,
     navigatorObservers: [_myRouteObserver],
+    onGenerateRoute: _myGenerateRoute,
     initialRoute: "/life_cycle_3",
     onUnknownRoute: (RouteSettings setting) =>
         MaterialPageRoute(builder: (context) => UnknownPage()),
@@ -59,4 +65,20 @@ Widget createSimple() {
       primarySwatch: Colors.blue,
     ),
   );
+}
+
+Route _myGenerateRoute(RouteSettings settings) {
+  final String name = settings.name;
+  final Function pageBuilder = Cons.routeList[name];
+  if (pageBuilder != null) {
+    if (settings.arguments != null) {
+      // 如果透传了参数
+      return MaterialPageRoute(
+          builder: (context) => pageBuilder(context, arguments: settings.arguments));
+    } else {
+      // 没有透传参数
+      return MaterialPageRoute(builder: (context) => LeakCheckWidget(child: pageBuilder(context)));
+    }
+  }
+  return MaterialPageRoute(builder: (context) => UnknownPage());
 }

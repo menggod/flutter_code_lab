@@ -1,6 +1,5 @@
 import 'dart:io';
 
-
 var a = A(20, "haha");
 
 main() {
@@ -15,7 +14,7 @@ main() {
   // a.age = 30;
   // print('menggod main: ${a.hashCode}');
 
-  // var a = Node("haha");
+  var a = Node("haha");
   // print('menggod main: ${a.hashCode}');
   // a = Node("hehe");
   // print('menggod main: ${a.hashCode}');
@@ -33,8 +32,10 @@ main() {
   //
   // list.forEach((element) {print('menggod main forEach: $element');});
 
-
-
+  var expando = Expando();
+  expando[a] = a.hashCode;
+  // a = null;
+  print('menggod main main: ${expando[a]}');
 }
 
 void testCatch() async {

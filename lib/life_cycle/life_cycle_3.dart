@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_code_test/kit/vm_helper.dart';
-import 'package:flutter_code_test/view/leak_widget.dart';
-
-import 'life_cycle.dart';
+import 'package:leak_memory_plugin/leak_memory/leak_manager.dart';
 
 class LifeCycle3 extends StatefulWidget {
   final String name1 = "haha";
+
+  LifeCycle3();
 
   @override
   _LifeCycle3State createState() => _LifeCycle3State();
@@ -20,54 +19,57 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     ModalRoute rootRoute = ModalRoute.of(context);
     print('menggod build: LifeCycle3');
-    return LeakCheckWidget(
-      child: SafeArea(
-        child: SingleChildScrollView(
-          controller: _controller,
-          child: Container(
-            color: Colors.white,
-            child: Center(
-              child: Column(children: [
-                OutlineButton(
-                  onPressed: () => {Navigator.pop(context)},
-                  color: Colors.blue,
-                  child: Text('返回'),
-                ),
-                FlatButton(
-                  onPressed: () => {Navigator.of(context).pushNamed("/life_cycle_3")},
-                  color: Colors.blue,
-                  child: Text('进入当前页面'),
-                ),
-                OutlineButton(
-                  onPressed: () => {debugDumpRenderTree()},
-                  color: Colors.blue,
-                  child: Text('render'),
-                ),
-                OutlineButton(
-                  onPressed: () => {debugDumpApp()},
-                  color: Colors.blue,
-                  child: Text('dump app'),
-                ),
-                OutlineButton(
-                  onPressed: () => {
-                    _test = WidgetsBinding.instance.renderViewElement,
-                    debugPrint('menggod life_cycle_3 build: ')
-                  },
-                  color: Colors.blue,
-                  child: Text('test app'),
-                ),
-                OutlineButton(
-                  onPressed: () => {resolveTree(context)},
-                  color: Colors.blue,
-                  child: Text('resolveTree'),
-                ),
-                OutlineButton(
-                  onPressed: () => {_processTree()},
-                  color: Colors.blue,
-                  child: Text('_processTree'),
-                ),
-              ]),
-            ),
+    return SafeArea(
+      child: SingleChildScrollView(
+        controller: _controller,
+        child: Container(
+          color: Colors.white,
+          child: Center(
+            child: Column(children: [
+              OutlineButton(
+                onPressed: () => {
+                  Future.delayed(const Duration(hours: 1), () {
+                      debugPrint('menggod life_cycle_3 build: ');
+                  }),
+                  Navigator.maybePop(context)
+                },
+                color: Colors.blue,
+                child: Text('返回'),
+              ),
+              FlatButton(
+                onPressed: () => {Navigator.of(context).pushNamed("/life_cycle_3")},
+                color: Colors.blue,
+                child: Text('进入当前页面'),
+              ),
+              OutlineButton(
+                onPressed: () => {debugDumpRenderTree()},
+                color: Colors.blue,
+                child: Text('render'),
+              ),
+              OutlineButton(
+                onPressed: () => {debugDumpApp()},
+                color: Colors.blue,
+                child: Text('dump app'),
+              ),
+              OutlineButton(
+                onPressed: () => {
+                  _test = WidgetsBinding.instance.renderViewElement,
+                  debugPrint('menggod life_cycle_3 build: ')
+                },
+                color: Colors.blue,
+                child: Text('test app'),
+              ),
+              OutlineButton(
+                onPressed: () => {resolveTree(context)},
+                color: Colors.blue,
+                child: Text('resolveTree'),
+              ),
+              OutlineButton(
+                onPressed: () => {_processTree()},
+                color: Colors.blue,
+                child: Text('_processTree'),
+              ),
+            ]),
           ),
         ),
       ),
@@ -116,7 +118,7 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     print('menggod initState: LifeCycle3');
-    WidgetsBinding.instance.addObserver(this);
+    // WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -151,13 +153,12 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
       if (element.widget is LifeCycle3) {
         debugPrint(
             'menggod --> : ${element.runtimeType}-->${element is RenderObjectElement}-->${element.hashCode}');
-        VmHelper.instance.getObject(element);
+        // VmHelper.instance.getObject(element);
+        // LeakManager.instance.watch(element).analyze();
       } else {}
       element.visitChildren(filter);
     }
-
     rootElement.visitChildren(filter);
-    // debugPrint('menggod --> : ${rootElement.runtimeType}-->${rootElement is RenderObjectElement}');
   }
 }
 
