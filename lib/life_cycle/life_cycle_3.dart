@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_code_test/page_third/state.dart';
 import 'package:leak_memory_plugin/leak_memory/leak_manager.dart';
 
 class LifeCycle3 extends StatefulWidget {
   final String name1 = "haha";
 
-  LifeCycle3();
+  LifeCycle3(){
+
+  }
 
   @override
   _LifeCycle3State createState() => _LifeCycle3State();
@@ -69,6 +72,7 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
                 color: Colors.blue,
                 child: Text('_processTree'),
               ),
+              TestOb()
             ]),
           ),
         ),
@@ -118,7 +122,7 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     print('menggod initState: LifeCycle3');
-    // WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
@@ -162,4 +166,28 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
   }
 }
 
-class TestController extends ScrollController {}
+class TestController extends ScrollController {
+
+}
+
+class TestOb extends StatefulWidget {
+  @override
+  _TestObState createState() => _TestObState();
+}
+
+class _TestObState extends State<TestOb> with WidgetsBindingObserver {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      height: 300,
+      color: Colors.pink,
+    );}
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+}
+

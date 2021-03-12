@@ -36,7 +36,7 @@ void main() async {
     //     exceptionCallback: (obj, trace) {
     //       print('ttt$obj');
     //     });
-    // LeakManager.instance;
+    LeakManager.instance;
     runApp(LeakApp(createApp()));
     // ApmKitManager.instance.startUp();
     // runApp(createApp());
