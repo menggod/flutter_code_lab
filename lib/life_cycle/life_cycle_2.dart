@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle_3.dart';
 
 class LifeCycle2 extends StatelessWidget {
@@ -31,16 +32,22 @@ class LifeCycle2 extends StatelessWidget {
                     },
                 color: Colors.green,
                 child: Text('跳转三')),
-            FlatButton(
-                onPressed: () => {
-                     _processTree()
-                    },
-                color: Colors.pink,
-                child: Text('分析三'))
+            FlatButton(onPressed: () => {_processTree()}, color: Colors.pink, child: Text('分析三')),
+            FlatButton(onPressed: () => {
+            platform.invokeMethod('startTaskLoop')
+            }, color: Colors.pink, child: Text('开始循环')),
+            FlatButton(onPressed: () => {
+              platform.invokeMethod('stopTaskLoop')
+            }, color: Colors.pink, child: Text('结束循环'))
           ]),
         ),
       ),
     );
+  }
+
+  static const platform = const MethodChannel('cn.mf.flutter_code_test/battery');
+  _processTaskLoop(){
+    platform.invokeMethod('startTaskLoop');
   }
 
   _processTree() {
@@ -55,6 +62,7 @@ class LifeCycle2 extends StatelessWidget {
       } else {}
       element.visitChildren(filter);
     }
+
     rootElement.visitChildren(filter);
   }
 
