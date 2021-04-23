@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_code_test/global/page_result.dart';
 import 'package:flutter_code_test/page_third/state.dart';
 import 'package:leak_memory_plugin/leak_memory/leak_manager.dart';
 
 class LifeCycle3 extends StatefulWidget {
   final String name1 = "haha";
 
-  LifeCycle3(){
-
-  }
+  LifeCycle3() {}
 
   @override
   _LifeCycle3State createState() => _LifeCycle3State();
@@ -32,9 +31,9 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
               OutlineButton(
                 onPressed: () => {
                   Future.delayed(const Duration(hours: 1), () {
-                      debugPrint('menggod life_cycle_3 build: ');
+                    debugPrint('menggod life_cycle_3 build: ');
                   }),
-                  Navigator.maybePop(context)
+                  Navigator.maybePop(context, PageResult(data: "haha"))
                 },
                 color: Colors.blue,
                 child: Text('返回'),
@@ -162,13 +161,12 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
       } else {}
       element.visitChildren(filter);
     }
+
     rootElement.visitChildren(filter);
   }
 }
 
-class TestController extends ScrollController {
-
-}
+class TestController extends ScrollController {}
 
 class TestOb extends StatefulWidget {
   @override
@@ -182,7 +180,8 @@ class _TestObState extends State<TestOb> with WidgetsBindingObserver {
       width: 300,
       height: 300,
       color: Colors.pink,
-    );}
+    );
+  }
 
   @override
   void initState() {
@@ -190,4 +189,3 @@ class _TestObState extends State<TestOb> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
   }
 }
-

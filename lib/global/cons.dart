@@ -7,9 +7,11 @@ import 'package:flutter_code_test/kit/memory_kit.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle_2.dart';
 import 'package:flutter_code_test/life_cycle/life_cycle_3.dart';
+import 'package:flutter_code_test/page/scroll_test.dart';
 import 'package:flutter_code_test/page/test_image.dart';
 import 'package:flutter_code_test/page/vm_test_page.dart';
 import 'package:flutter_code_test/page_first/view.dart';
+import 'package:flutter_code_test/page_layout/custom_view_layout.dart';
 import 'package:flutter_code_test/test1/bug_page.dart';
 
 class Cons {
@@ -28,9 +30,11 @@ class Cons {
     "/my_home_page": (BuildContext context) => MyHomePage(),
     "/animation_page": (BuildContext context) => AnimaPage(),
     "/baidu_page": (BuildContext context) => FirstPage(),
+    "/custom_view_layout": (BuildContext context) => CustomViewLayout(),
     "/life_cycle": (BuildContext context) => CounterWidget(),
     "/life_cycle_2": (BuildContext context) => LifeCycle2(),
     "/life_cycle_3": (BuildContext context) => LifeCycle3(),
+    "/scroll_test": (BuildContext context) => ScrollTestA(),
     "/test_image": (BuildContext context) => TestImagePage(),
     "/crash_page": (BuildContext context) => CrashPage(),
     "/bug_page": (BuildContext context) => BugPage(),
@@ -43,9 +47,11 @@ class Cons {
     "/my_home_page": "跳转到  星星测试页面",
     "/animation_page": "day2 动画测试页面",
     "/baidu_page": "跳转百度",
+    "/custom_view_layout": "自定义 view 测试",
     "/life_cycle": "生命周期测试",
     "/life_cycle_2": "生命周期测试2",
     "/life_cycle_3": "生命周期测试2",
+    "/scroll_test": "滚动测试",
     "/test_image": "测试图片",
     "/crash_page": "崩溃测试",
     "/bug_page": "测试 context",
