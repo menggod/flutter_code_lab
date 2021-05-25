@@ -12,8 +12,11 @@ import 'package:leak_memory_plugin/ui/leak_widget.dart';
 import 'draw/day02/home.dart';
 import 'global/router_observer.dart';
 import 'splash/page.dart';
+import 'view/test_overlay.dart';
 
 final MyRouteObserver _myRouteObserver = MyRouteObserver();
+
+final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 Widget createApp() {
   final AbstractRoutes routes = PageRoutes(pages: <String, Page<Object, dynamic>>{

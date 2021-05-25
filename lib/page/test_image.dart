@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/api/api.dart';
 import 'package:flutter_code_test/utils/color_utils.dart';
+import 'package:flutter_code_test/view/image_widget.dart';
 import 'package:flutter_code_test/view/square_grid_view.dart';
 
 class TestImagePage extends StatefulWidget {
@@ -26,9 +27,9 @@ class _TestImagePageState extends State<TestImagePage> {
               child: Stack(children: [
                 Positioned(
                     bottom: 0,
-                    child: Image.network(
-                      url,
-                      width: MediaQuery
+                    child: OfficialNetworkImage(
+                      url: url,
+                      w: MediaQuery
                           .of(context)
                           .size
                           .width,
@@ -64,10 +65,17 @@ class _TestImagePageState extends State<TestImagePage> {
     print(response.data.toString());
     var data = response.data["images"];
     var imageBean = data[0];
-    setState(() {
-      url = "http://cn.bing.com" + imageBean["url"];
-      print('menggod _getData: $url');
-      text = imageBean["copyright"];
+
+    Future.delayed(Duration(milliseconds: 10000), () {
+
+      setState(() {
+        url = "http://cn.bing.com" + imageBean["url"];
+        // url = "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01a9d85ecf6bdba80120662104b791.jpg%402o.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621750511&t=8b4eb2f1e27e5c445b1c7c1f35851b48";
+        print('menggod _getData: $url');
+        text = imageBean["copyright"];
+      });
+
     });
+
   }
 }

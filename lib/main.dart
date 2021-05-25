@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_code_test/my_app.dart';
 import 'package:leak_memory_plugin/leak_memory/leak_manager.dart';
 import 'package:leak_memory_plugin/ui/leak_app.dart';
+import 'package:path/path.dart';
 
 import 'kit/apm.dart';
+import 'view/test_overlay.dart';
 
 void main() async {
   // debugProfileBuildsEnabled = true;
@@ -40,7 +42,6 @@ void main() async {
     runApp(LeakApp(createApp()));
     // ApmKitManager.instance.startUp();
     // runApp(createApp());
-
   }, (Object error, StackTrace stackTrace) async {
     // Whenever an error occurs, call the `_reportError` function. This sends
     // Dart errors to the dev console or Sentry depending on the environment.

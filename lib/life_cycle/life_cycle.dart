@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_code_test/view/float_btn.dart';
+import 'package:flutter_code_test/view/test_overlay.dart';
 
 class CounterWidget extends StatefulWidget {
   final int initValue;
@@ -73,6 +74,12 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
             child: Text('$_counter'),
             onPressed: () => setState(() => ++_counter),
           ),
+          FlatButton(
+              color: Colors.blue,
+              child: Text("overlay"),
+              onPressed: () {
+                TestOverLay.show(context: context, view: Text("哈哈"));
+              }),
         ])),
       ),
     );
