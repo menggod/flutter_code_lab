@@ -30,14 +30,14 @@ class HTTP {
 
   Dio _dio = new Dio();
 
-  TokenInterceptors _tokenInterceptors = new TokenInterceptors();
+  // TokenInterceptors _tokenInterceptors = new TokenInterceptors();
 
   HTTP() {
-    _dio.interceptors.add(new HeaderInterceptors());
-    // _dio.interceptors.add(_tokenInterceptors);
-    _dio.interceptors.add(new LogsInterceptors());
-    _dio.interceptors.add(new ErrorInterceptors(_dio));
-    _dio.interceptors.add(new ApiInterceptors());
+    // _dio.interceptors.add(new HeaderInterceptors());
+    // // _dio.interceptors.add(_tokenInterceptors);
+    // _dio.interceptors.add(new LogsInterceptors());
+    // _dio.interceptors.add(new ErrorInterceptors(_dio));
+    // _dio.interceptors.add(new ApiInterceptors());
   }
 
   Future<ResultData> request(
@@ -77,12 +77,12 @@ class HTTP {
   }
 
   clearAuthorization() {
-    _tokenInterceptors.clearAuthorization();
+    // _tokenInterceptors.clearAuthorization();
   }
 
-  getAuthorization() async {
-    return _tokenInterceptors.getAuthorization();
-  }
+  // getAuthorization() async {
+  //   return _tokenInterceptors.getAuthorization();
+  // }
 
   resultError(DioError error, bool isNoTip) {
     Response errorResponse;
@@ -92,8 +92,8 @@ class HTTP {
       errorResponse = new Response(statusCode: 666);
     }
 
-    if (error.type == DioErrorType.CONNECT_TIMEOUT ||
-        error.type == DioErrorType.RECEIVE_TIMEOUT) {
+    if (error.type == DioErrorType.connectTimeout ||
+        error.type == DioErrorType.receiveTimeout) {
       errorResponse.statusCode = Code.NETWORK_TIMEOUT;
     }
 

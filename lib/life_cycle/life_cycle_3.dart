@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/global/page_result.dart';
 import 'package:flutter_code_test/page_third/state.dart';
-import 'package:leak_memory_plugin/leak_memory/leak_manager.dart';
 
 class LifeCycle3 extends StatefulWidget {
   final String name1 = "haha";

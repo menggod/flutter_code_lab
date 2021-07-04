@@ -7,7 +7,6 @@ import 'package:flutter_code_test/page/unknown_page.dart';
 import 'package:flutter_code_test/page_first/page.dart';
 import 'package:flutter_code_test/page_second/page.dart';
 import 'package:flutter_code_test/test1/page.dart';
-import 'package:leak_memory_plugin/ui/leak_widget.dart';
 
 import 'draw/day02/home.dart';
 import 'global/router_observer.dart';
@@ -80,7 +79,7 @@ Route _myGenerateRoute(RouteSettings settings) {
           builder: (context) => pageBuilder(context, arguments: settings.arguments));
     } else {
       // 没有透传参数
-      return MaterialPageRoute(builder: (context) => LeakCheckWidget(child: pageBuilder(context)));
+      return MaterialPageRoute(builder: (context) => pageBuilder(context));
     }
   }
   return MaterialPageRoute(builder: (context) => UnknownPage());
