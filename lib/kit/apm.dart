@@ -1,12 +1,9 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'memory_kit.dart';
 
 class ApmKitManager {
-  Map<String, ApmKit> kitMap = {
-    ApmKitName.KIT_MEMORY: MemoryKit(),
-  };
+  Map<String, ApmKit> kitMap = {};
 
   ApmKitManager._privateConstructor() {}
 
@@ -14,14 +11,11 @@ class ApmKitManager {
 
   static ApmKitManager get instance => _instance;
 
-  // 如果想要自定义实现，可以用这个方式进行覆盖。后续扩展入口
   void addKit(String tag, ApmKit kit) {
-    assert(tag != null && kit != null);
     kitMap[tag] = kit;
   }
 
-  T getKit<T extends ApmKit>(String name) {
-    assert(name != null);
+  ApmKit? getKit<T extends ApmKit?>(String name) {
     if (kitMap.containsKey(name)) {
       return kitMap[name];
     }
@@ -82,7 +76,7 @@ class CommonStorage implements IStorage {
 }
 
 abstract class ApmKit implements IKit {
-  IStorage storage;
+  late IStorage storage;
 
   void start();
 
@@ -94,23 +88,10 @@ abstract class ApmKit implements IKit {
 
   ApmKit() {
     storage = createStorage();
-    assert(storage != null, 'storage should not be null');
   }
 
   @override
-  void tabAction() {
-    // ResidentPage.residentPageKey.currentState.setState(() {
-    //   ResidentPage.tag = getKitName();
-    // });
-  }
-
-  @override
-  bool save(IInfo info) {
-    return info != null &&
-        storage != null &&
-        !storage.contains(info) &&
-        storage.save(info);
-  }
+  void tabAction() {}
 
   IStorage getStorage() {
     return storage;

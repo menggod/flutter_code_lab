@@ -70,15 +70,15 @@ class B extends Person {
 }
 
 class C {
-  A a;
-  B b;
+  A? a;
+  B? b;
 
-  C({A a, B b});
+  C({A? a, B? b});
 }
 
 class Person {
-  int age;
-  String name;
+  int? age;
+  String? name;
   var test = 3333;
 
   Person(this.age, this.name) {

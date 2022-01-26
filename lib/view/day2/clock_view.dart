@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/apple/help/cons.dart';
@@ -10,20 +9,27 @@ import '../help_view.dart';
 
 var currTime = new DateTime.now();
 var tagOfBall = new DateTime.now().millisecondsSinceEpoch;
-var _balls = new List<Ball>();
+var _balls = <Ball>[];
 
 class Ball {
-  double aX; //加速度
-  double aY; //加速度Y
-  double vX; //速度X
-  double vY; //速度Y
-  double x; //点位X
-  double y; //点位Y
-  Color color; //颜色
-  double r; //小球半径
+  late double aX; //加速度
+  late double aY; //加速度Y
+  late double vX; //速度X
+  late double vY; //速度Y
+  late double x; //点位X
+  late double y; //点位Y
+  late Color color; //颜色
+  late double r; //小球半径
 
   Ball(
-      {this.x, this.y, this.color, this.r, this.aX, this.aY, this.vX, this.vY});
+      {this.x = 0,
+      this.y = 0,
+      this.color = Colors.white,
+      this.r = 0,
+      this.aX = 0,
+      this.aY = 0,
+      this.vX = 0,
+      this.vY = 0});
 
   //复制一个小球
   Ball.fromBall(Ball ball) {
@@ -39,12 +45,12 @@ class Ball {
 }
 
 class ClockView extends CustomPainter {
-  Paint mPaint;
-  BuildContext context;
+  late Paint mPaint;
+  late BuildContext context;
 
   double _radius = 4;
-  DateTime _now;
-  Path mStarPath; //半径
+  late DateTime _now;
+  late Path mStarPath; //半径
 
   ClockView(this.context) {
     mPaint = new Paint();
@@ -144,7 +150,6 @@ class ClockView extends CustomPainter {
     canvas.translate(100, 60);
 
     mPaint.color = Color.fromARGB(148, 198, 246, 248);
-//    canvas.drawRect(_limit, mPaint);
 
     canvas.save();
 
@@ -206,7 +211,7 @@ class ClockView extends CustomPainter {
   }
 
   void drawBall(Canvas canvas, Ball ball) {
-    mPaint.color = ball.color;
-    canvas.drawCircle(Offset(ball.x, ball.y), ball.r, mPaint);
+    mPaint.color = ball.color!;
+    canvas.drawCircle(Offset(ball.x!, ball.y!), ball.r!, mPaint);
   }
 }

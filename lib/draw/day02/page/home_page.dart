@@ -23,23 +23,20 @@ class HomePage extends StatelessWidget {
         labelColor: Color(0xffffff),
         unselectedLabelColor: Color(0xffeeeeee),
         tabs: Cons.homeTabs
-            .map((e) =>
-            Container(
-              height: 40,
-              alignment: Alignment.center,
-              child: Text(e),
-            ))
+            .map((e) => Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: Text(e),
+                ))
             .toList());
   }
 
-  Widget _homeContent() =>
-      TabBarView(
+  Widget _homeContent() => TabBarView(
         children: Cons.homeTabs
-            .map((e) =>
-            Align(
-              alignment: Alignment(0, -0.8),
-              child: Text(e),
-            ))
+            .map((e) => Align(
+                  alignment: Alignment(0, -0.8),
+                  child: Text(e),
+                ))
             .toList(),
       );
 }
@@ -65,19 +62,19 @@ class HomeMenu extends StatelessWidget {
 
   List<PopupMenuEntry> _buildMenuItem(BuildContext context) {
     return Cons.menuInfo
-        .map((e) =>
-        PopupMenuItem(
-          child: Text(e),
-          value: Cons.menuInfo.indexOf(e),
-        ))
+        .map((e) => PopupMenuItem(
+              child: Text(e),
+              value: Cons.menuInfo.indexOf(e),
+            ))
         .toList();
   }
 
-  void _onSelected(BuildContext context, int value) {
-    print("menggod--->$value");
+  void _onSelected(BuildContext context, Object? value) {
     if (value == 0) {
       var snackBar = SnackBar(
-          duration: Duration(seconds: 5), content: Container(child: Text(" 这个是我的测试")), backgroundColor: Colors.green);
+          duration: Duration(seconds: 5),
+          content: Container(child: Text(" 这个是我的测试")),
+          backgroundColor: Colors.green);
       Scaffold.of(context).showSnackBar(snackBar);
     } else {
       var content = Container(

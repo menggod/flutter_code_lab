@@ -6,10 +6,10 @@ import 'package:flutter_code_test/view/common_path.dart';
 import 'package:flutter_code_test/view/help_view.dart';
 
 class StarView extends CustomPainter {
-  Paint mPaint;
+  late Paint mPaint;
   BuildContext context;
 
-  StarView(this.context,Color color) {
+  StarView(this.context, Color color) {
     print(color);
     mPaint = new Paint();
     mPaint.color = color;

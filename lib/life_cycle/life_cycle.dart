@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter_code_test/view/float_btn.dart';
-import 'package:flutter_code_test/view/test_overlay.dart';
 
 class CounterWidget extends StatefulWidget {
   final int initValue;
@@ -17,9 +14,10 @@ class CounterWidget extends StatefulWidget {
   }
 }
 
-class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserver {
-  int _counter;
-  List dataList;
+class _CounterWidgetState extends State<CounterWidget>
+    with WidgetsBindingObserver {
+  int _counter = 0;
+  List dataList = [];
 
   Future<Null> _fetchData() async {
     await Future.delayed(Duration(seconds: 5), () {
@@ -33,54 +31,44 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
-    var _entry = OverlayEntry(builder: (context) {
-      return FloatBtn();
-    });
     var _test;
 
     print('menggod  lifecycle build: ');
     var _scaffold = Scaffold(
       body: SafeArea(
         child: Center(
-            child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
-          Text('这个是生命周期测试页面一'),
-          Text(this.hashCode.toString()),
-          MaterialButton(
-            onPressed: () => {Navigator.pushNamed(context, "/life_cycle_2")},
-            color: Colors.purple,
-            textColor: Colors.white,
-            child: Text('跳转到页面二'),
-          ),
-          MaterialButton(
-            onPressed: () => {Navigator.pushNamed(context, "/life_cycle")},
-            color: Colors.pink,
-            textColor: Colors.white,
-            child: Text('跳转到当前页面'),
-          ),
-          MaterialButton(
-            onPressed: () => {Navigator.pushNamed(context, "/vm_page")},
-            color: Colors.green,
-            textColor: Colors.white,
-            child: Text('内存检测页面'),
-          ),
-          MaterialButton(
-            onPressed: () => {Overlay.of(context).insert(_entry)},
-            color: Colors.yellow,
-            textColor: Colors.black,
-            child: Text('render'),
-          ),
-          FlatButton(
-            color: Colors.blue,
-            child: Text('$_counter'),
-            onPressed: () => setState(() => ++_counter),
-          ),
-          FlatButton(
-              color: Colors.blue,
-              child: Text("overlay"),
-              onPressed: () {
-                TestOverLay.show(context: context, view: Text("哈哈"));
-              }),
-        ])),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+              Text('这个是生命周期测试页面一'),
+              Text(this.hashCode.toString()),
+              MaterialButton(
+                onPressed: () =>
+                    {Navigator.pushNamed(context, "/life_cycle_2")},
+                color: Colors.purple,
+                textColor: Colors.white,
+                child: Text('跳转到页面二'),
+              ),
+              MaterialButton(
+                onPressed: () => {Navigator.pushNamed(context, "/life_cycle")},
+                color: Colors.pink,
+                textColor: Colors.white,
+                child: Text('跳转到当前页面'),
+              ),
+              MaterialButton(
+                onPressed: () => {Navigator.pushNamed(context, "/vm_page")},
+                color: Colors.green,
+                textColor: Colors.white,
+                child: Text('内存检测页面'),
+              ),
+              FlatButton(
+                color: Colors.blue,
+                child: Text('$_counter'),
+                onPressed: () => setState(() => ++_counter),
+              ),
+              FlatButton(
+                  color: Colors.blue, child: Text("overlay"), onPressed: () {}),
+            ])),
       ),
     );
 
@@ -89,7 +77,6 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
 
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     super.initState();
     _counter = widget.initValue;
     print('menggod  lifecycle  initState: ');
@@ -111,8 +98,6 @@ class _CounterWidgetState extends State<CounterWidget> with WidgetsBindingObserv
 
   @override
   void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    // 丢掉, 处理, 安置
     super.dispose();
     print('menggod lifecycle dispose: ');
   }

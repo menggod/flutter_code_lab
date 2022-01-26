@@ -45,7 +45,7 @@ class _NavPageState extends State<NavPage> {
 
   List<BottomNavigationBarItem> _buildBottomItems() {
     String hh = "";
-    hh = null;
+    hh = "";
 
 
     return Cons.bottomNavMap.keys

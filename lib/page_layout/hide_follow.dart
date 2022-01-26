@@ -11,7 +11,7 @@ class HideFlow extends StatefulWidget {
 
 class _HideFlowState extends State<HideFlow>
     with SingleTickerProviderStateMixin {
-  AnimationController _ctrl;
+  AnimationController? _ctrl;
   bool _opened = false;
 
   @override
@@ -20,9 +20,10 @@ class _HideFlowState extends State<HideFlow>
     _ctrl =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
   }
+
   @override
   void dispose() {
-    _ctrl.dispose();
+    _ctrl?.dispose();
     super.dispose();
   }
 
@@ -49,40 +50,41 @@ class _HideFlowState extends State<HideFlow>
 
   void _toggle() {
     if (_opened) {
-      _ctrl.reverse();
+      _ctrl?.reverse();
     } else {
-      _ctrl.forward();
+      _ctrl?.forward();
     }
     _opened = !_opened;
   }
 }
 
 class HideFlowDelegate extends FlowDelegate {
-  final Size size;
-  final Animation<double> repaint;
+  Size? size;
+  Animation<double>? repaint;
 
   HideFlowDelegate({this.size, this.repaint}) : super(repaint: repaint);
 
   @override
   void paintChildren(FlowPaintingContext context) {
-    assert(context.childCount>=2);
+    assert(context.childCount >= 2);
     final int lastIndex = context.childCount - 1;
-    final Size topSize = context.getChildSize(0);
-    final Size bottomSize = context.getChildSize(lastIndex);
+    final Size topSize = context.getChildSize(0)!;
+    final Size bottomSize = context.getChildSize(lastIndex)!;
 
     context.paintChild(1);
 
     context.paintChild(0,
-        transform:
-            Matrix4.translationValues(0, -topSize.height * (repaint.value), 0));
+        transform: Matrix4.translationValues(
+            0, -topSize.height * (repaint?.value ?? 0), 0));
     context.paintChild(lastIndex,
         transform: Matrix4.translationValues(
-            0, size.height - bottomSize.height * (1 - repaint.value), 0));
+            0,
+            size?.height ?? 0 - bottomSize.height * (1 - (repaint?.value ?? 0)),
+            0));
   }
 
   @override
   bool shouldRepaint(covariant FlowDelegate oldDelegate) {
-    // TODO: implement shouldRepaint
     return false;
   }
 }

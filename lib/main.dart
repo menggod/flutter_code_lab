@@ -1,30 +1,17 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_code_test/my_app.dart';
 
-import 'package:path/path.dart';
-
-import 'kit/apm.dart';
-import 'view/test_overlay.dart';
-
 void main() async {
-  // debugProfileBuildsEnabled = true;
 
   bool isInDebugMode = false;
   FlutterError.onError = (FlutterErrorDetails details) async {
-    // if (isInDebugMode) {
-    //   FlutterError.dumpErrorToConsole(details);
-    // } else {
-    //   print('menggod main: ${details.exception}<--->${details.stack}');
-    //
-    // }
     print('menggod main: ${details.exception}<--->${details.stack}');
-    Zone.current.handleUncaughtError(details.exception, details.stack);
+    Zone.current.handleUncaughtError(details.exception, details.stack!);
   };
 
   // ignore: missing_return
-  runZonedGuarded<Future<void>>(() {
+  runZonedGuarded<Future<void>>(() async {
     WidgetsFlutterBinding.ensureInitialized();
     // DoKit.runApp(
     //     app: DoKitApp(createApp()),

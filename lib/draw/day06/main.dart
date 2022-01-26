@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
 
 class NewWidget extends StatefulWidget {
   const NewWidget({
-    Key key,
+    Key ? key,
   }) : super(key: key);
 
   @override

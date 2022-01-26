@@ -40,28 +40,29 @@ class _PaperState extends State<Paper> {
 
   @override
   void initState() {
-    SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
     SystemChrome.setEnabledSystemUIOverlays([]);
     super.initState();
   }
 }
 
 class GridLinePainter extends CustomPainter {
-  Paint _paint;
+  late Paint _paint;
   Path _path = Path();
   Size _size = Size(500, 500);
 
   GridLinePainter() {
     _paint = Paint()
       ..style = PaintingStyle.stroke
-      // ..color = Color(0xffbbc3c5);
       ..color = Colors.black87;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     // canvas.drawPath(gridPath(20, _size), _paint);
-    canvas.drawPoints(PointMode.points, [Offset(300, 400),Offset(100, 100)], _paint);
+    canvas.drawPoints(
+        PointMode.points, [Offset(300, 400), Offset(100, 100)], _paint);
   }
 
   @override

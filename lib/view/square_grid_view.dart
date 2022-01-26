@@ -10,16 +10,16 @@ class SquareGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-       size: Size(double.infinity, double.infinity),
+        size: Size(double.infinity, double.infinity),
         painter: SquareGridPainter(displayAxis: displayAxis));
   }
 }
 
 class SquareGridPainter extends CustomPainter {
-  Coordinate coordinate;
-  final bool displayAxis;
+  late final Coordinate coordinate;
+  late final bool displayAxis;
 
-  SquareGridPainter({this.displayAxis}) {
+  SquareGridPainter({this.displayAxis = false}) {
     coordinate = Coordinate(step: 20, isDisplayAxis: displayAxis);
   }
 

@@ -66,19 +66,24 @@ class ColorGenerator {
     0xff90a4ae
   ];
 
-  List<int> mColors;
-  Random mRandom;
+  List<int> mColors = [];
+  Random mRandom = Random(DateTime
+      .now()
+      .millisecondsSinceEpoch);
 
-  static ColorGenerator create(List<int> colorList) {
-    return ColorGenerator();
+      static ColorGenerator create(List<int> colorList) {
+  return ColorGenerator();
   }
 
   ColorGenerator({List<int> colorList = materialList}) {
     mColors = colorList;
-    mRandom = Random(DateTime.now().millisecondsSinceEpoch);
+    mRandom = Random(DateTime
+        .now()
+        .millisecondsSinceEpoch);
   }
 
-  Color getColor(Object key) => Color(mColors[key.hashCode.abs() % mColors.length]);
+  Color getColor(Object key) =>
+      Color(mColors[key.hashCode.abs() % mColors.length]);
 
   Color getRandomColor() {
     return Color(mColors[mRandom.nextInt(mColors.length)]);

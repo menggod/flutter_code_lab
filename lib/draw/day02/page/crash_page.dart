@@ -30,8 +30,7 @@ class _HomePage extends StatelessWidget {
               elevation: 1.0,
               onPressed: () {
                 Future.delayed(const Duration(milliseconds: 500), () {
-                  var text = "";
-                  text = null;
+                  String? text = "";
                   print('menggod build: ${text.length}');
                 });
               },

@@ -1,17 +1,14 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 import 'common_path.dart';
 import 'help_view.dart';
 
 class StarView extends CustomPainter {
-  Paint mPaint;
+  late Paint mPaint;
   BuildContext context;
 
-  StarView(this.context,Color color) {
+  StarView(this.context, Color color) {
     print(color);
     mPaint = new Paint();
     mPaint.color = color;
@@ -28,7 +25,6 @@ class StarView extends CustomPainter {
     canvas.save();
     for (int i = 5; i < 10; i++) {
       canvas.translate(64, 0);
-
 
       canvas.drawPath(nStarPath(i, 30, 15), mPaint);
     }

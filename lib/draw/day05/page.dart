@@ -22,7 +22,8 @@ class TestPathPainter extends CustomPainter {
       ..relativeLineTo(30, 30)
       ..close();
     for (int i = 0; i < 8; i++) {
-      canvas.drawPath(path.transform(Matrix4.rotationZ(i * pi / 4).storage), paint);
+      canvas.drawPath(
+          path.transform(Matrix4.rotationZ(i * pi / 4).storage), paint);
     }
     canvas.restore();
   }
@@ -37,7 +38,8 @@ class HandleWidget extends StatefulWidget {
   final double size;
   final double handleRadius;
 
-  HandleWidget({Key key, this.size = 60.0, this.handleRadius = 30.0}) : super(key: key);
+  HandleWidget({Key? key, this.size = 60.0, this.handleRadius = 30.0})
+      : super(key: key);
 
   @override
   _HandleWidgetState createState() => _HandleWidgetState();
@@ -46,7 +48,9 @@ class HandleWidget extends StatefulWidget {
 class _HandleWidgetState extends State<HandleWidget> {
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(size: Size(widget.size, widget.size), painter: _HandlePainter(handleR: widget.handleRadius));
+    return CustomPaint(
+        size: Size(widget.size, widget.size),
+        painter: _HandlePainter(handleR: widget.handleRadius));
   }
 }
 
@@ -73,5 +77,6 @@ class _HandlePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_HandlePainter oldDelegate) => oldDelegate.handleR != handleR;
+  bool shouldRepaint(_HandlePainter oldDelegate) =>
+      oldDelegate.handleR != handleR;
 }

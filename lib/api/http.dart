@@ -1,36 +1,29 @@
 import 'dart:async' show Future;
 import 'dart:collection' show HashMap;
 import 'dart:convert';
-import 'package:dio/dio.dart' show Dio, Options, DioError, Response, DioErrorType;
+
+import 'package:dio/dio.dart'
+    show Dio, Options, DioError, Response, DioErrorType;
 import 'package:flutter_code_test/global/constants.dart';
 
-import './result_data.dart';
-import './interceptors/token_interceptor.dart' show TokenInterceptors;
-import './interceptors/header_interceptor.dart' show HeaderInterceptors;
-import './interceptors/log_interceptor.dart' show LogsInterceptors;
-import './interceptors/error_interceptor.dart' show ErrorInterceptors;
-import 'interceptors/api_interceptor.dart' show ApiInterceptors;
-
-// import './result_data.dart' show ResultData;
 import './code.dart' show Code;
+import './result_data.dart';
 
 class HTTP {
   static const CONTENT_TYPE_JSON = 'application/json';
   static const CONTENT_TYPE_FROM = 'application/x-www-form-urlencoded';
 
-  static HTTP inst;
+  static HTTP? inst;
 
   static HTTP getInstance() {
     if (inst != null) {
-      return inst;
+      return inst!;
     }
     inst = new HTTP();
-    return inst;
+    return inst!;
   }
 
   Dio _dio = new Dio();
-
-  // TokenInterceptors _tokenInterceptors = new TokenInterceptors();
 
   HTTP() {
     // _dio.interceptors.add(new HeaderInterceptors());
@@ -43,8 +36,8 @@ class HTTP {
   Future<ResultData> request(
     String apiCode,
     data, {
-    Map<String, dynamic> headers,
-    Options options,
+    Map<String, dynamic>? headers,
+    Options? options,
     isNoTip = false,
   }) async {
     Map<String, dynamic> _headers = new HashMap();
@@ -80,16 +73,13 @@ class HTTP {
     // _tokenInterceptors.clearAuthorization();
   }
 
-  // getAuthorization() async {
-  //   return _tokenInterceptors.getAuthorization();
-  // }
-
   resultError(DioError error, bool isNoTip) {
     Response errorResponse;
     if (error.response != null) {
-      errorResponse = error.response;
+      errorResponse = error.response!;
     } else {
-      errorResponse = new Response(statusCode: 666);
+      errorResponse =
+          new Response(requestOptions: error.requestOptions, statusCode: 666);
     }
 
     if (error.type == DioErrorType.connectTimeout ||
@@ -104,7 +94,7 @@ class HTTP {
         isNoTip,
       ),
       false,
-      errorResponse.statusCode,
+      errorResponse.statusCode!,
     );
   }
 }
