@@ -47,12 +47,15 @@ class PoemItemView extends StatelessWidget {
         ),
       ],
     );
-    var summary = Text(
-      //尾部摘要
-      data?.summary ?? "",
-      maxLines: 3,
-      overflow: TextOverflow.ellipsis,
-      style: TextStyle(color: Colors.grey, fontSize: 12),
+    var summary = Container(
+      margin: EdgeInsets.all(20),
+      child: Text(
+        //尾部摘要
+        data?.summary ?? "",
+        maxLines: 3,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(color: Colors.grey, fontSize: 12),
+      ),
     );
     var item = Row(
       //条目拼合
@@ -64,10 +67,8 @@ class PoemItemView extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: center,
         ),
-        Expanded(
-          child: summary,
-        ),
-        SizedBox(width: 10),
+        Expanded(child: Container()),
+        summary,
       ],
     );
 
