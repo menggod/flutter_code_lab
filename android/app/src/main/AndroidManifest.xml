@@ -27,7 +27,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="flutter_code_test"
+        android:label="Flutter实验室"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
