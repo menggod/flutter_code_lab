@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'counter_high_get/view.dart';
 import 'global/cons.dart';
 import 'global/router_observer.dart';
 import 'life_cycle/life_cycle.dart';
 import 'page/unknown_page.dart';
+import 'splash/view.dart';
 
 final MyRouteObserver _myRouteObserver = MyRouteObserver();
 
 final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
 Widget createApp() {
-  return MaterialApp(
+  return GetMaterialApp(
     key: Cons.rootKey,
     onUnknownRoute: (RouteSettings setting) =>
         MaterialPageRoute(builder: (context) => UnknownPage()),
@@ -19,7 +22,7 @@ Widget createApp() {
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
-    home: CounterWidget(),
+    home: HomeListPage(),
     onGenerateRoute: _myGenerateRoute,
   );
 }
@@ -34,9 +37,7 @@ Widget createSimple() {
         MaterialPageRoute(builder: (context) => UnknownPage()),
     title: '测试',
     debugShowCheckedModeBanner: false,
-    theme: ThemeData(
-      primarySwatch: Colors.blue,
-    ),
+    theme: ThemeData(),
   );
 }
 
