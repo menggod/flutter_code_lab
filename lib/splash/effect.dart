@@ -21,4 +21,5 @@ class HomeListEffect extends GetxController {
     state.data = itemList;
     debugPrint('menggod effect onInit:${itemList.length} ');
   }
+
 }

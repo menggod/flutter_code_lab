@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_code_test/splash/model/poem_item_bean.dart';
 
 class PoemItemView extends StatelessWidget {
-  final PoemItem? data;
+  final PoemItem data;
+  final Function onClick;
 
-  const PoemItemView(this.data, {Key? key}) : super(key: key);
+  const PoemItemView(this.data, this.onClick, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class PoemItemView extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(3),
           child: CircleAvatar(
-            backgroundColor: data?.image,
+            backgroundColor: data.image,
           ),
         ));
     var center = Column(
@@ -36,12 +37,12 @@ class PoemItemView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(data?.title ?? "",
+        Text(data.title ?? "",
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
         Padding(
           padding: EdgeInsets.only(top: 8),
           child: Text(
-            "作者:${data?.author}",
+            "作者:${data.author}",
             style: TextStyle(color: Colors.grey, fontSize: 12),
           ),
         ),
@@ -74,7 +75,9 @@ class PoemItemView extends StatelessWidget {
 
     return Card(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onClick(data);
+        },
         child: Padding(padding: EdgeInsets.fromLTRB(0, 3, 0, 3), child: item),
       ),
     );
