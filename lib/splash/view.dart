@@ -45,7 +45,8 @@ class HomeListPage extends StatelessWidget {
             itemCount: state.data.length,
             itemBuilder: (BuildContext context, int index) {
               return PoemItemView(state.data[index], (bean) {
-                Navigator.of(context).pushNamed(bean.title ?? "");
+                Get.toNamed(bean.title);
+                // Navigator.of(context).pushNamed(bean.title ?? "");
               });
             }));
   }
