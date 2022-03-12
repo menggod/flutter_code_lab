@@ -24,19 +24,17 @@ dependencies:
   flutter:
     sdk: flutter
 
-  path_provider: 2.0.8
-  dio: ^4.0.0
+  path_provider: 2.0.9
+  dio: ^4.0.4
 
   web_socket_channel: 2.1.0
+
   connectivity: 3.0.6
 
   get: ^4.6.1
 
-  date_format: 2.0.5
-  vm_service: 8.1.0
-
-  package_info: 2.0.2
-  shared_preferences: 2.0.12
+  vm_service: 8.2.1
+  shared_preferences:    2.0.13
 
 #  leak_memory_plugin:
 #    path: ../leak_memory_plugin

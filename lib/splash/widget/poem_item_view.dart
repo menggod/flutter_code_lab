@@ -52,7 +52,7 @@ class PoemItemView extends StatelessWidget {
       margin: EdgeInsets.all(20),
       child: Text(
         //尾部摘要
-        data?.summary ?? "",
+        data.summary ?? "",
         maxLines: 3,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(color: Colors.grey, fontSize: 12),
