@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class ErrorPage extends StatefulWidget {
@@ -11,7 +10,8 @@ class ErrorPage extends StatefulWidget {
 }
 
 class _ErrorPageState extends State<ErrorPage> {
-  final TextEditingController textEditingController = new TextEditingController();
+  final TextEditingController textEditingController =
+      new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -60,16 +60,14 @@ class _ErrorPageState extends State<ErrorPage> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  FlatButton(
-                    color: Color(0xFF24292E),
+                  TextButton(
                     onPressed: _errorReport,
                     child: Text('Report'),
                   ),
                   SizedBox(
                     width: 40.0,
                   ),
-                  FlatButton(
-                    color: Colors.white,
+                  TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -85,7 +83,8 @@ class _ErrorPageState extends State<ErrorPage> {
   }
 
   void _errorReport() {
-    String content = '${widget.details.exception.toString()}\n${widget.details.stack.toString()}';
+    String content =
+        '${widget.details.exception.toString()}\n${widget.details.stack.toString()}';
     showDialog(
         context: context,
         builder: (BuildContext context) {

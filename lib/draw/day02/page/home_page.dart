@@ -75,7 +75,7 @@ class HomeMenu extends StatelessWidget {
           duration: Duration(seconds: 5),
           content: Container(child: Text(" 这个是我的测试")),
           backgroundColor: Colors.green);
-      Scaffold.of(context).showSnackBar(snackBar);
+      // Scaffold.of(context).showBottomSheet(snackBar);
     } else {
       var content = Container(
         height: 50,

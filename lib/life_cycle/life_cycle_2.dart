@@ -33,7 +33,7 @@ class LifeCycle2 extends StatelessWidget {
               '当前页面是生命周期第二个页面',
               style: TextStyle(fontSize: 12, decoration: TextDecoration.none),
             ),
-            FlatButton(
+            ElevatedButton(
                 onPressed: () => {
                       Navigator.push(
                           context,
@@ -42,7 +42,6 @@ class LifeCycle2 extends StatelessWidget {
                           (value) => debugPrint(
                               'menggod life_cycle_2 build: ${value.data}] '))
                     },
-                color: Colors.green,
                 child: Text('跳转三')),
             TextButton(
                 onPressed: () => {_processTaskLoop()}, child: Text('分析三'))

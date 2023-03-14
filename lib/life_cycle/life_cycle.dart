@@ -61,13 +61,11 @@ class _CounterWidgetState extends State<CounterWidget>
                 textColor: Colors.white,
                 child: Text('内存检测页面'),
               ),
-              FlatButton(
-                color: Colors.blue,
+              ElevatedButton(
                 child: Text('$_counter'),
                 onPressed: () => setState(() => ++_counter),
               ),
-              FlatButton(
-                  color: Colors.blue, child: Text("overlay"), onPressed: () {}),
+              ElevatedButton(child: Text("overlay"), onPressed: () {}),
             ])),
       ),
     );

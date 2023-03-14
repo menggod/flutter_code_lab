@@ -25,9 +25,8 @@ class _HomePage extends StatelessWidget {
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new RaisedButton(
+            new ElevatedButton(
               child: new Text('null exception'),
-              elevation: 1.0,
               onPressed: () {
                 Future.delayed(const Duration(milliseconds: 500), () {
                   String? text = "";
@@ -35,16 +34,14 @@ class _HomePage extends StatelessWidget {
                 });
               },
             ),
-            new RaisedButton(
+            new ElevatedButton(
               child: new Text('Dart exception'),
-              elevation: 1.0,
               onPressed: () {
                 throw new StateError('This is a Dart exception.');
               },
             ),
-            new RaisedButton(
+            new ElevatedButton(
               child: new Text('async Dart exception'),
-              elevation: 1.0,
               onPressed: () async {
                 foo() async {
                   throw new StateError('This is an async Dart exception.');
@@ -57,9 +54,8 @@ class _HomePage extends StatelessWidget {
                 await bar();
               },
             ),
-            new RaisedButton(
+            new ElevatedButton(
               child: new Text('Java exception'),
-              elevation: 1.0,
               onPressed: () async {
                 final channel = const MethodChannel('crashy-custom-channel');
                 await channel.invokeMethod('blah');

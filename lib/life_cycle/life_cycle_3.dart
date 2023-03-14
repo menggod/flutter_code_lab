@@ -25,30 +25,26 @@ class _LifeCycle3State extends State<LifeCycle3> with WidgetsBindingObserver {
           color: Colors.white,
           child: Center(
             child: Column(children: [
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () => {
                   Future.delayed(const Duration(hours: 1), () {
                     debugPrint('menggod life_cycle_3 build: ');
                   }),
                   Navigator.maybePop(context, PageResult(data: "haha"))
                 },
-                color: Colors.blue,
                 child: Text('返回'),
               ),
-              FlatButton(
+              TextButton(
                 onPressed: () =>
                     {Navigator.of(context).pushNamed("/life_cycle_3")},
-                color: Colors.blue,
                 child: Text('进入当前页面'),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () => {debugDumpRenderTree()},
-                color: Colors.blue,
                 child: Text('render'),
               ),
-              OutlineButton(
+              OutlinedButton(
                 onPressed: () => {debugDumpApp()},
-                color: Colors.blue,
                 child: Text('dump app'),
               ),
               TestOb()

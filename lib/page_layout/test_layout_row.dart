@@ -153,11 +153,10 @@ class LayoutDemo extends StatelessWidget {
         title: new Text('水平方向布局'),
       ),
       body: new Row(children: <Widget>[
-        new RaisedButton(
+        new ElevatedButton(
           onPressed: () {
             print('点击红色按钮事件');
           },
-          color: const Color(0xffcc0000),
           child: new Text('红色按钮'),
         ),
         Expanded(
@@ -179,11 +178,10 @@ class LayoutDemo extends StatelessWidget {
             ],
           ),
         ),
-        new RaisedButton(
+        new ElevatedButton(
           onPressed: () {
             print('点击粉色按钮事件');
           },
-          color: const Color(0xffea9999),
           child: new Text('粉色按钮'),
         ),
       ]),

@@ -51,9 +51,7 @@ class _AppFloatBoxState extends State<AppFloatBox> {
             });
           },
           onTap: () {
-            Scaffold.of(context).showSnackBar(
-              SnackBar(content: new Text('你戳到我了!')),
-            );
+
           },
           onPanEnd: (detail) {},
           child: Container(
